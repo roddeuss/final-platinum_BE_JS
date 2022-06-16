@@ -29,6 +29,6 @@ router.post('/login', function (req, res, next) {
         next()
     }
 }, auth.postLogin)
-router.get('/logout', auth.logout)
+router.post('/logout', auth.logout)
 
 module.exports = router

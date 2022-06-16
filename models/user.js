@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     address: DataTypes.STRING,
     image: DataTypes.STRING,
-    number_mobile: DataTypes.INTEGER
+    number_mobile: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'user',
