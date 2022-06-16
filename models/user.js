@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       try {
         const userLog = await this.findOne({ where: {email}})
         if(!userLog) return Promise.reject("Email not found!")
-        const isPasswordValid = userLog.checkPassword(password, userLog.password)
+        const isPasswordValid = await userLog.checkPassword(password, userLog.password)
         if(!isPasswordValid) return Promise.reject("Wrong Password!")
 
         return Promise.resolve(userLog)

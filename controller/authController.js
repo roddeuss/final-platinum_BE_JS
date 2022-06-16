@@ -26,9 +26,7 @@ module.exports = {
             )
         })
         .catch(err => {
-            res.json(
-                {message: "Login Gagal", success: false, data: {}}
-            )
+            res.json({message: "Login Gagal", success: false, data: {}})
         })
     }
 }
