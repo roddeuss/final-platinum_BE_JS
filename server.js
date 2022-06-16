@@ -2,12 +2,14 @@ const express = require('express');
 
 const app = express();
 
-const authRoute = require('./router/auth')
+const authRoute = require('./router/auth');
+const usersRoute = require('./router/users');
 
-app.use(express.json())
+app.use(express.json());
 
-app.use(authRoute)
+app.use(authRoute);
+app.use(usersRoute);
 
 app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-  });
+  console.log('Server is running on port 3000');
+});
