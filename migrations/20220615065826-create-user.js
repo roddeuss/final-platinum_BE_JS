@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       number_mobile: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
