@@ -26,12 +26,14 @@ app.use(flash())
 const authRoute = require('./router/auth');
 const usersRoute = require('./router/users');
 const productRoute = require('./router/product');
+const tawarRoute = require('./router/tawar')
 
 app.use(express.json());
 
 app.use(authRoute);
 app.use(usersRoute);
 app.use(productRoute);
+app.use(tawarRoute);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
