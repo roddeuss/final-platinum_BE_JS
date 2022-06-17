@@ -12,9 +12,13 @@ module.exports = {
         })
     },
     getProduct: (req, res) => {
-        product.findAll({})
+        product.findAll({where: {isSold: false, publish: true}, include: ['productImage']})
         .then(products => {
-            res.json({message: "Product Ditemukan", success: true, data: {products}})
+            if(products.length == 0){
+                res.json({message: "Product Kosong", success: true, data: {products}})
+            } else {
+                res.json({message: "Product Ditemukan", success: true, data: {products}})
+            }
         })
         .catch(err => {
             res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
@@ -83,6 +87,42 @@ module.exports = {
         })
         .catch(err => {
             res.json({message: "Product Id Gagal Ditemukan", success: false, data: {}})  
+        })
+    },
+    publishProduct: (req, res) => {
+        const productId = req.params.id;
+        const {userId} = req.session
+        product.findOne({where : {id: productId, userId}})
+        .then(products => {
+            console.log(products)
+            product.update(
+                {publish: true},
+                {where : {id: products.id}}
+            ).then(update => {
+                res.json({message: `Product Berhasil Dipublish`, success: true, data: {update}})
+            }).catch(err => {
+                res.json({message: "Product Gagal Dirubah", success: false, data: {}})
+            })
+        }).catch(err => {
+            res.json({message: "Product Tidak Dapat Dirubah", success: false, data: {}})
+        })
+    },
+    keepProduct: (req, res) => {
+        const productId = req.params.id;
+        const {userId} = req.session
+        product.findOne({where : {id: productId, userId}})
+        .then(products => {
+            console.log(products)
+            product.update(
+                {publish: false},
+                {where : {id: products.id}}
+            ).then(update => {
+                res.json({message: `Product Berhasil Dikeep`, success: true, data: {update}})
+            }).catch(err => {
+                res.json({message: "Product Gagal Dirubah", success: false, data: {}})
+            })
+        }).catch(err => {
+            res.json({message: "Product Tidak Dapat Dirubah", success: false, data: {}})
         })
     },
     deleteProduct: (req, res) => {

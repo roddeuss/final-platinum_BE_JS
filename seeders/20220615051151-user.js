@@ -9,8 +9,13 @@ module.exports = {
     let seedUser = [
       {
         id: 1,
+        name: 'John',
         email: 'user@user.com',
         password: hash('user'),
+        city: 'Kota Konoha',
+        address: 'Jl. Jalan',
+        image: 'profile.jpg',
+        number_mobile: '081234568910',
         createdAt: new Date(),
         updatedAt: new Date()
       },

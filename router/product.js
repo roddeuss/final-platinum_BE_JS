@@ -30,6 +30,8 @@ router.get('/product/:id', product.getProductId)
 // })
 router.post('/product/:userId', product.checkUser , uploadImage.array('images-product', 5), product.postProduct)
 router.put('/product/:id', uploadImage.array('images-product', 5), product.postProduct)
+router.post('/product/publish/:id', product.publishProduct)
+router.post('/product/keep/:id', product.keepProduct)
 router.delete('/product/:id', product.deleteProduct)
 
 module.exports = router
