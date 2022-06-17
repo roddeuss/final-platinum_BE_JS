@@ -1,6 +1,16 @@
-const {product, productImage} = require("../models")
+const {user, product, productImage} = require("../models")
 
 module.exports = {
+    checkUser: (req, res, next) => {
+        user.findOne({where: { id : req.session.userId}})
+        .then((users) => {
+            if(users.name && users.city && users.address && users.image && users.number_mobile){
+                next()
+            } else {
+                return res.json({message: "Isi biodata dulu", success: false, data: {}})
+            }
+        })
+    },
     getProduct: (req, res) => {
         product.findAll({})
         .then(products => {
