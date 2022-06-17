@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      // define association here
+      this.hasMany(models.product, {as: 'product'})
     }
   }
   user.init({

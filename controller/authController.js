@@ -24,7 +24,7 @@ module.exports = {
             let test = formatUser(status)
             console.log(test)
             session=req.session;
-            session.email=req.body.email;
+            session.userId=status.dataValues.id;
             console.log(req.session)
             res.json(
                 {message: "Login Berhasil", success: true, data: {test}}

@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const product = require('./product');
+// const product = require('./product');
 module.exports = (sequelize, DataTypes) => {
   class productImage extends Model {
     /**
@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.product,{foreingKey: 'id', as: 'product', unique:false})
+      this.belongsTo(models.product, {foreingKey: 'id', as: 'product', unique:false})
     }
   }
   productImage.init({
-    product_id: DataTypes.INTEGER,
+    productId: DataTypes.INTEGER,
     image: DataTypes.TEXT
   }, {
     sequelize,

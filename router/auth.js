@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 
 const cekSession = (req, res, next) => {
-    if(req.session.email) {
+    if(req.session.userId) {
         next()
     } else {
         res.redirect('/login')
@@ -12,18 +12,18 @@ const cekSession = (req, res, next) => {
 }
 
 router.get('/', cekSession, function (req, res){
-    let userLog = req.session.email
+    let userLog = req.session.userId
     res.json({message: `Halaman Home ${userLog}`, success: true, data: { userLog }})
 })
 router.get('/login', function (req, res, next) {
-    if(req.session.email) {
+    if(req.session.userId) {
         res.redirect("/")
     } else {
         next()
     }
 }, auth.getLogin)
 router.post('/login', function (req, res, next) {
-    if(req.session.email) {
+    if(req.session.userId) {
         res.redirect("/")
     } else {
         next()
