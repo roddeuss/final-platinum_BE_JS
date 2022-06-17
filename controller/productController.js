@@ -12,7 +12,7 @@ module.exports = {
         })
     },
     getProduct: (req, res) => {
-        product.findAll({where: {isSold: false, publish: true}})
+        product.findAll({where: {isSold: false, publish: true}, include: ['productImage']})
         .then(products => {
             if(products.length == 0){
                 res.json({message: "Product Kosong", success: true, data: {products}})
