@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      product.belongTo(models.product,{foreingKey: 'id', as: 'product', unique:false})
+      this.belongsTo(models.product,{foreingKey: 'id', as: 'product', unique:false})
     }
   }
   productImage.init({
