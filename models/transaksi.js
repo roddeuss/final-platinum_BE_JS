@@ -11,12 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-     transaksi.belongsTo(models.user, {foreingKey: 'id', as: 'user', unique: false}) 
+      //  transaksi.belongsTo(models.user, {foreingKey: 'id', as: 'user', unique: false}) 
+      transaksi.belongsTo(models.product, { foreingKey: 'id', as: 'product' })
     }
   }
   transaksi.init({
     user_id: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
+    productId: DataTypes.INTEGER,
     qty: DataTypes.INTEGER,
     price: DataTypes.INTEGER
   }, {
