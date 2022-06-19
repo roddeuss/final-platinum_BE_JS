@@ -11,7 +11,7 @@ app.use(session({
   secret: 'Ini rahasia banget',
   resave: false,
   saveUninitialized: true,
-  cookie: {maxAge: 1000 * 60 * 60 * 24}
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }))
 
 app.set("view engine", "ejs");
@@ -27,6 +27,7 @@ const authRoute = require('./router/auth');
 const usersRoute = require('./router/users');
 const productRoute = require('./router/product');
 const tawarRoute = require('./router/tawar')
+const transaksiRoue = require('./router/transaksi')
 
 app.use(express.json());
 
@@ -34,6 +35,7 @@ app.use(authRoute);
 app.use(usersRoute);
 app.use(productRoute);
 app.use(tawarRoute);
+app.use(transaksiRoue);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
