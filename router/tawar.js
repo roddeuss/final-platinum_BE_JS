@@ -1,13 +1,8 @@
-const tawar = require('../controller/tawarController')
-const express = require('express')
-const router = express.Router()
+const router = require("express").Router();
 
-router.get('/tawars', tawar.getTawar)
-router.get('/tawars/product',tawar.getTawarProduct)
-router.get('/tawars/:id', tawar.getTawarId)
+const tawar = require("../controller/tawarController");
 
-router.post('/tawars/', tawar.postTawar)
-router.put('/tawars/:Id', tawar.putTawar)
-router.delete('/tawars/:id', tawar.deleteTawar)
+router.post("/tawar", tawar.createTawar)
+router.get("/tawar", tawar.getTawar)
 
-module.exports = router
+module.exports = router;
