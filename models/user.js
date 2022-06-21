@@ -38,6 +38,27 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.product, {as: 'product'})
     }
+
+    static #encrypt = (password) => {
+      return bcrypt.hashSync(password, 10)
+    }
+    static register = (res, name, email, password) => {
+      const encryptedPassword = this.#encrypt(password)
+      console.log(name, email, encryptedPassword)
+      this.findOne({where :{email}})
+      .then((found) => {
+        if(found == null){
+          return this.create({name, email, password: encryptedPassword})
+          .then((data) => {
+            res.json({message: "Register Berhasil", success: true, data})
+          }).catch((error) => {
+            res.json({message: "Register Gagal", success: false, data: {}})
+          })
+        } else {
+          return res.json({message: "Email sudah digunakan", success: false, data:{}})
+        }
+      })
+    }
   }
   user.init({
     name: DataTypes.STRING,

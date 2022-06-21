@@ -26,9 +26,7 @@ module.exports = {
             session=req.session;
             session.userId=status.dataValues.id;
             console.log(req.session)
-            res.json(
-                {message: "Login Berhasil", success: true, data: {test}}
-            )
+            res.json({message: "Login Berhasil", success: true, data: {test}})
         })
         .catch(err => {
             res.json({message: "Login Gagal", success: false, data: {}})
@@ -42,5 +40,16 @@ module.exports = {
     logout: (req,res) => {
         req.session.destroy();
         res.json({message: 'Logout Berhasil', success: true, data: {}});
+    },
+    getRegister: (req, res) => {
+        res.json({message: "Masukkan Nama, Email, dan Password", success: true, data: {}})
+    },
+    postRegister: (req, res) => {
+        const {name, email, password} = req.body;
+        console.log(req.body)
+        if(!(name && email && password)) {
+            return res.json({message: "Beberapa data kosong", success: false, data: {}})
+        }
+        user.register(res, name, email, password)
     }
 }

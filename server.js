@@ -1,9 +1,12 @@
+require('dotenv').config({path: __dirname + '/.env'})
 const express = require('express');
-
 const app = express();
 const flash = require('flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const swaggerUI = require('swagger-ui-express');
+
+const swaggerJSON = require('./swagger.json')
 
 app.use(express.json())
 app.use(cookieParser())
@@ -21,6 +24,7 @@ const passport = require('./lib/passport-local');
 app.use(passport.initialize())
 app.use(passport.session())
 
+
 app.use(flash())
 
 const authRoute = require('./router/auth');
@@ -34,6 +38,8 @@ app.use(authRoute);
 app.use(usersRoute);
 app.use(productRoute);
 app.use(tawarRoute);
+
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJSON))
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

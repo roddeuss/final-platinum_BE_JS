@@ -9,6 +9,8 @@ module.exports = {
             } else {
                 return res.json({message: "Isi biodata dulu", success: false, data: {}})
             }
+        }).catch(err => {
+            res.json({message: "Login Dulu", success: false, data: {}})
         })
     },
     getProduct: (req, res) => {
@@ -25,7 +27,7 @@ module.exports = {
         })
     },
     getUserProduct: (req, res) => {
-        product.findAll({where: {userId: req.session.userId}})
+        product.findAll({where: {userId: req.session.userId}, include: ['productImage']})
         .then(products => {
             res.json({message: "Product User Ditemukan", success: true, data: {products}})
         })
@@ -35,6 +37,9 @@ module.exports = {
     },
     postProduct: (req, res) => {
         const {name, category, price, description} = req.body
+        if(!req.session.userId){
+            return res.json({message: "Login Dulu", success: false, data: {}})
+        }
         const userId = req.session.userId
         const files = req.files
         console.log(userId, name, category, price, description)
@@ -48,6 +53,7 @@ module.exports = {
             res.json({message: "Success tambah product", success: true, data: {product}})
         })
         .catch(err => {
+            console.log(err)
             res.json({message: "Gagal tambah product", success: false, data: {}})
         })
     },

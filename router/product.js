@@ -2,6 +2,7 @@ const product = require('../controller/productController')
 const express = require('express')
 const router = express.Router()
 const multer = require("multer");
+const bodyParser = require('body-parser')
 
 const uploadImage = multer({ storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -28,10 +29,10 @@ router.get('/product/:id', product.getProductId)
 // router.get('/addProduct', function(req, res) {
 //     res.render('views/uploadImage')
 // })
-router.post('/product/:userId', product.checkUser , uploadImage.array('images-product', 5), product.postProduct)
-router.put('/product/:id', uploadImage.array('images-product', 5), product.postProduct)
-router.post('/product/publish/:id', product.publishProduct)
-router.post('/product/keep/:id', product.keepProduct)
+router.post('/product', product.checkUser, bodyParser.json(), uploadImage.array('images-product', 5), product.postProduct)
+router.put('/product/:id', product.checkUser, uploadImage.array('images-product', 5), product.postProduct)
+router.post('/product/publish/:id', product.checkUser, product.publishProduct)
+router.post('/product/keep/:id', product.checkUser, product.keepProduct)
 router.delete('/product/:id', product.deleteProduct)
 
 module.exports = router

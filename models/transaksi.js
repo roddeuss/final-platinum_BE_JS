@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-     transaksi.belongsTo(models.user, {foreingKey: 'id', as: 'user', unique: false}) 
+     this.belongsTo(models.user, {foreignKey: 'id', as: 'user', unique: false}) 
     }
   }
   transaksi.init({

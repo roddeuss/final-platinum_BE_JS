@@ -2,21 +2,29 @@ const {tawar, product, transaksi } = require("../models")
 
 module.exports = {
     getTawar: (req, res) => {
-        tawar.findAll({})
+        tawar.findAll({include: "product"})
         .then(tawars => {
+            console.log(tawars)
             res.json({message: "Tawar Ditemukan", success: true, data: {tawars}})
         })
         .catch(err => {
+            console.log(err)
             res.json({message:  "Tawar Tidak Ditemukan", success: false, data:{}})
         })
     },
     getTawarProduct: (req, res) =>{
-        tawar.findAll({where: {product_id: req.session.product_id}})
+        const {productId} = req.params
+        tawar.findAll({where: {product_id: productId}})
         .then(tawars => {
-            res.json({message: "Tawar Product Ditemukan", success: true, data:{tawars}})
+            if(tawars.length == 0){
+                res.json({message: "Tawaran Product Kosong", success: true, data:{tawars}})
+            } else {
+                res.json({message: "Tawaran Product Ditemukan", success: true, data:{tawars}})
+            }
         })
         .catch(err => {
-            res.json({message: "Tawar Produckt Gagal Ditemukan", success: true, data: {}})
+            console.error(err)
+            res.json({message: "Tawaran Product Gagal Ditemukan", success: true, data: {}})
         })
     },
     postTawar: (req, res) =>{
