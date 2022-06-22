@@ -1,4 +1,4 @@
-const {tawar, product, transaksi } = require("../models")
+const models = require("../models");
 
 module.exports = {
     getTawar: (req, res) => {
@@ -52,24 +52,48 @@ module.exports = {
                 res.json({message: "Gagal Update Tawar", success: false, data: {}})
             })
     },
+    models.product.findOne({
+      where: {
+        id: data.product_id,
+        publish: true,
+        isSold: false,
+      },
+    }).then(() => {
+        models.tawar.create({
+            user_id: data.user_id,
+            product_id: data.product_id,
+            price: data.price,
+        }). then((tawar) => {
+            res.status(200).json({
+                message: "Tawar Berhasil",
+                success: true,
+                data: tawar
+            })
+        })
+    }).catch((err) => {
+        res.status(400).json({
+            message: err.message,
+            success: false,
+        });
+    })
+  },
 
-    getTawarId: (req, res) => {
-        tawar.findOne({where: {id: req.params.id}})
-        .then(tawar => {
-            res.json({message: "Tawar Id  Ditemukan", success:true, data:{tawar}})
-        })
-        .catch(err => {
-            res.json({message: "Tawar Id Tidak Ditemukan", success:false,data:{}})
-        })
-    },
+  getTawar: (req, res) => {
 
-    deleteTawar: (req, res) => {
-        tawar.destroy({where: {id: req.params.id}})
-        .then((tawar) => {
-            res.json({message: "Tawar Product Dihapus", success: true, data: {tawar}})
-        })
-        .catch(err => {
-            res.json({message: "Tawar Product Gagal Dihapus", success: false, data: {}})  
-        })
-    }
-}
+    models.tawar.findAll({
+    })
+      .then((tawar) => {
+        res.status(200).json({
+          message: "Succes get Tawar",
+          success: true,
+          data: tawar,
+        });
+      }
+      ).catch((err) => {
+        res.status(400).json({
+          message: err.message,
+          success: false,
+        });
+      })
+  }
+};
