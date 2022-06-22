@@ -2,7 +2,7 @@ const {user, product, productImage} = require("../models")
 
 module.exports = {
     checkUser: (req, res, next) => {
-        user.findOne({where: { id : req.session.userId}})
+        user.findOne({where: { id : req.user.id}})
         .then((users) => {
             if(users.name && users.city && users.address && users.image && users.number_mobile){
                 next()
@@ -23,11 +23,12 @@ module.exports = {
             }
         })
         .catch(err => {
+            console.log(err)
             res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
         })
     },
     getUserProduct: (req, res) => {
-        product.findAll({where: {userId: req.session.userId}, include: ['productImage']})
+        product.findAll({where: {userId: req.user.id}, include: ['productImage']})
         .then(products => {
             res.json({message: "Product User Ditemukan", success: true, data: {products}})
         })
@@ -37,10 +38,10 @@ module.exports = {
     },
     postProduct: (req, res) => {
         const {name, category, price, description} = req.body
-        if(!req.session.userId){
+        if(!req.user){
             return res.json({message: "Login Dulu", success: false, data: {}})
         }
-        const userId = req.session.userId
+        const userId = req.user.id
         const files = req.files
         console.log(userId, name, category, price, description)
         product.create({userId, name, category, price, description})
@@ -59,7 +60,7 @@ module.exports = {
     },
     putProduct: (req, res) => {
         const {name, category, price, description} = req.body
-        const userId = req.session.userId
+        const userId = req.user.id
         const files = req.files
         console.log(userId, name, category, price, description)
         product.update({userId, name, category, price, description},
@@ -97,7 +98,7 @@ module.exports = {
     },
     publishProduct: (req, res) => {
         const productId = req.params.id;
-        const {userId} = req.session
+        const userId = req.user.id
         product.findOne({where : {id: productId, userId}})
         .then(products => {
             console.log(products)
@@ -115,7 +116,7 @@ module.exports = {
     },
     keepProduct: (req, res) => {
         const productId = req.params.id;
-        const {userId} = req.session
+        const userId = req.user.id
         product.findOne({where : {id: productId, userId}})
         .then(products => {
             console.log(products)

@@ -29,6 +29,9 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
+      // images: {
+      //   type: Sequelize.Array(Sequelize.TEXT)
+      // },
       isSold:{
         type: Sequelize.BOOLEAN,
         defaultValue: false

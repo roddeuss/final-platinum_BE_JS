@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       }
       console.log(payload);
       const rahasia = "Ini sangat rahasia"
-      const token = jwt.sign(payload, rahasia)
+      const token = jwt.sign(payload, rahasia, {expiresIn: '1d'})
       return token;
     }
 

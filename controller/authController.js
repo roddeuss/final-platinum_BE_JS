@@ -1,7 +1,12 @@
 const bcrypt = require('bcrypt')
 // const jwt = require('jsonwebtoken')
 const {user} = require('../models')
-const passportLocal = require("../lib/passport-local");
+const passport = require("../lib/passport");
+const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
+const express = require('express');
+const app = express();
 let session;
 
 function formatUser(user) {
@@ -14,15 +19,23 @@ function formatUser(user) {
 
 module.exports = {
     getLogin: (req, res) =>{
-        res.json({message: "Masukkan Email dan Password", success: true, data: {}})
+        res.render('views/login')
+        // res.json({message: "Masukkan Email dan Password", success: true, data: {}})
     },
     postLogin: (req, res) =>{
         console.log(req.body)
         const {email, password} = req.body;
         user.authenticate(email, password)
         .then(status => {
+            console.log(req.session)
             let test = formatUser(status)
             console.log(test)
+            // app.use(session({
+            //     secret: 'Ini rahasia banget',
+            //     resave: false,
+            //     saveUninitialized: false,
+            //     cookie: {maxAge: 1000 * 60 * 60 * 24}
+            // }))
             session=req.session;
             session.userId=status.dataValues.id;
             console.log(req.session)
@@ -32,13 +45,21 @@ module.exports = {
             res.json({message: "Login Gagal", success: false, data: {}})
         })
     },
-    login: passportLocal.authenticate('local', {
+    login: passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login',
         failureFlash: true
     }),
     logout: (req,res) => {
-        req.session.destroy();
+        // req.session.cookie.maxAge = 0
+        // req.session.cookie.expires = Date.now()
+        // req.session.userId = null;
+        // console.log(req.session)
+        // req.session.destroy();
+        console.log(req.session)
+        res.clearCookie('connect.sid');
+        // req.session.destroy();
+        console.log(req.session)
         res.json({message: 'Logout Berhasil', success: true, data: {}});
     },
     getRegister: (req, res) => {
@@ -51,5 +72,8 @@ module.exports = {
             return res.json({message: "Beberapa data kosong", success: false, data: {}})
         }
         user.register(res, name, email, password)
+    },
+    getWhoami: (req, res) => {
+        res.json(req.user)
     }
 }

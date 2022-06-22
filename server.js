@@ -1,31 +1,33 @@
 require('dotenv').config({path: __dirname + '/.env'})
 const express = require('express');
 const app = express();
-const flash = require('flash');
+// const flash = require('flash');
+const cors = require('cors');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const swaggerUI = require('swagger-ui-express');
-
 const swaggerJSON = require('./swagger.json')
+const bodyParser = require('body-parser')
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cookieParser())
 app.use(session({
   secret: 'Ini rahasia banget',
-  resave: false,
-  saveUninitialized: true,
+  resave: true,
+  saveUninitialized: false,
   cookie: {maxAge: 1000 * 60 * 60 * 24}
 }))
 
 app.set("view engine", "ejs");
 app.set('views', __dirname);
 
-const passport = require('./lib/passport-local');
+const passport = require('./lib/passport');
 app.use(passport.initialize())
 app.use(passport.session())
 
-
-app.use(flash())
+app.use(cors())
+// app.use(flash())
 
 const authRoute = require('./router/auth');
 const usersRoute = require('./router/users');

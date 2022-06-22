@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Dokumentasi API Final Project BE ",
+    "description": "Dokumentasi API Final Project BE",
     "version": "1.0.0",
-    "title": "Challenge Chapter 5",
+    "title": "Dokumentasi API Final Project BE",
     "contact": {
       "url": "https://www.github.com/"
     }
@@ -77,6 +77,43 @@
         }
       }
     },
+    "/register":{
+      "get": {
+        "tags": ["Auth"],
+        "summary": "GET /register",
+        "description": "Get register page",
+        "operationId": "getRegister",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "GET Register success"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Auth"],
+        "summary": "POST /register",
+        "description": "Post register page",
+        "operationId": "postRegister",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "form input",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/register"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GET Register success"
+          }
+        }
+      }
+    },
     "/products":{
       "get": {
         "tags": ["Product"],
@@ -128,6 +165,66 @@
             "description": "Get Product Id",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "POST product",
+        "description": "",
+        "operationId": "postProduct",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in" : "formData",
+            "description": "input name product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "category",
+            "in" : "formData",
+            "description": "input category product",
+            "required" : true,
+            "type" : "string",
+            "enum": ["A","B","C","D"]
+          },
+          {
+            "name": "price",
+            "in" : "formData",
+            "description": "input price product",
+            "required" : true,
+            "type" : "integer"
+          },
+          {
+            "name": "description",
+            "in" : "formData",
+            "description": "input description product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "imageProduct",
+            "in": "formData",
+            "description": "input image product",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "file",
+              "format": "binary"
+            }
           }
         ],
         "responses": {
@@ -554,6 +651,23 @@
         "password": {
           "type": "string",
           "example": "test"
+        }
+      }
+    },
+    "register": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Budiman"
+        },
+        "email": {
+          "type": "string",
+          "example": "budiman@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "budiman"
         }
       }
     },
