@@ -1,0 +1,755 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Dokumentasi API Final Project BE",
+    "version": "1.0.0",
+    "title": "Dokumentasi API Final Project BE",
+    "contact": {
+      "url": "https://www.github.com/"
+    }
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "API Auth"
+    },
+    {
+      "name": "Product",
+      "description": "API Product"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/login": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get /login",
+        "description": "",
+        "operationId": "getLogin",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Get /login"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user",
+        "description": "",
+        "operationId": "postLogin",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "form input",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Login"
+          },
+          "400": {
+            "description": "Gagal Login"
+          }
+        }
+      }
+    },
+    "/logout":{
+      "post": {
+        "tags": ["Auth"],
+        "summary": "mehtod logout user",
+        "description": "Logout user",
+        "operationId": "postLogout",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Logut berhasil"
+          }
+        }
+      }
+    },
+    "/register":{
+      "get": {
+        "tags": ["Auth"],
+        "summary": "GET /register",
+        "description": "Get register page",
+        "operationId": "getRegister",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "GET Register success"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Auth"],
+        "summary": "POST /register",
+        "description": "Post register page",
+        "operationId": "postRegister",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "form input",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/register"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GET Register success"
+          }
+        }
+      }
+    },
+    "/products":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get All publish product",
+        "description": "",
+        "operationId": "getProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/product/user":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get All user product",
+        "description": "",
+        "operationId": "getUserProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/product/{productId}":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get Id publish product",
+        "description": "",
+        "operationId": "getIdProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "POST product",
+        "description": "",
+        "operationId": "postProduct",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in" : "formData",
+            "description": "input name product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "category",
+            "in" : "formData",
+            "description": "input category product",
+            "required" : true,
+            "type" : "string",
+            "enum": ["A","B","C","D"]
+          },
+          {
+            "name": "price",
+            "in" : "formData",
+            "description": "input price product",
+            "required" : true,
+            "type" : "integer"
+          },
+          {
+            "name": "description",
+            "in" : "formData",
+            "description": "input description product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "imageProduct",
+            "in": "formData",
+            "description": "input image product",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "file",
+              "format": "binary"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/api/user/{userId}": {
+      "get": {
+        "tags": [
+          "UserGame"
+        ],
+        "summary": "Finds user by id",
+        "description": "Get User By Id",
+        "operationId": "getUserId",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get User Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Mendapatkan Id",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserGame"
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Mendapatkan Id"
+          }
+        }
+      },
+      "put": {
+        "tags": ["UserGame"],
+        "summary": "Update user by id",
+        "description": "Update User By Id",
+        "operationId": "updateUserId",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get User Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add User update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserGame"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Mengupdate Id",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserGame"
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Mengupdate Id"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["UserGame"],
+        "summary": "Delete user in UserGame",
+        "description": "",
+        "operationId": "deleteUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Delete User Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Menghapus User"
+          },
+          "400": {
+            "description": "Gagal Menghapus User"
+          }
+        }
+      }
+    },
+    "/api/biodata/{userId}": {
+      "post": {
+        "tags": ["UserGameBiodata"],
+        "summary": "Add Biodata user in UserGameBiodata",
+        "description": "",
+        "operationId": "addBiodataUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Add Biodata User Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add User update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserGameBiodata"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Menghapus User"
+          },
+          "400": {
+            "description": "Gagal Menghapus User"
+          }
+        }
+      },
+      "get": {
+        "tags": ["UserGameBiodata"],
+        "summary": "Get biodata user by User Idin UserGameBiodata",
+        "description": "",
+        "operationId": "getBiodataUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get Biodata User Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Mengdapatkan Biodata User"
+          },
+          "400": {
+            "description": "Gagal Mendapatkan Biodata User"
+          }
+        }
+      },
+      "put": {
+        "tags": ["UserGameBiodata"],
+        "summary": "Update Biodata user in UserGameBiodata",
+        "description": "",
+        "operationId": "updateBiodataUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "get Biodata User Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add Biodata User update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserGameBiodata"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Mengupdate Biodata User"
+          },
+          "400": {
+            "description": "Gagal Mengupdate Biodata User"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["UserGameBiodata"],
+        "summary": "Update Biodata user in UserGameBiodata",
+        "description": "",
+        "operationId": "deleteBiodataUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get Biodata User Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Menghapus Biodata User"
+          },
+          "400": {
+            "description": "Gagal Menghapus Biodata User"
+          }
+        }
+      }
+    },
+    "/api/history/{userId}": {
+      "post": {
+        "tags": ["UserGameHistory"],
+        "summary": "Add history user in UserGameHistory",
+        "description": "",
+        "operationId": "addHistoryUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Add Biodata User Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add User update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserGameHistory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Menambahkan History User"
+          },
+          "400": {
+            "description": "Gagal Menambahkan History User"
+          }
+        }
+      },
+      "get": {
+        "tags": ["UserGameHistory"],
+        "summary": "Get All history user by User Id in UserGameHistory",
+        "description": "",
+        "operationId": "getAllBiodataHistory",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get User Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Mengdapatkan All History User"
+          },
+          "400": {
+            "description": "Gagal Mendapatkan All History User"
+          }
+        }
+      }
+    },
+    "/api/history/{userId}/{historyId}": {
+      "get": {
+        "tags": ["UserGameHistory"],
+        "summary": "Get history user by history Id in UserGameHistory",
+        "description": "",
+        "operationId": "getIdBiodataHistory",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get User Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "historyId",
+            "in": "path",
+            "description": "Get History Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Mengdapatkan Id History User"
+          },
+          "400": {
+            "description": "Gagal Mendapatkan Id History User"
+          }
+        }
+      },
+      "put": {
+        "tags": ["UserGameHistory"],
+        "summary": "Update history user by User Id and history id in UserGameHistory",
+        "description": "",
+        "operationId": "updateHistoryId",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get User Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "historyId",
+            "in": "path",
+            "description": "Get History Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add history update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserGameHistory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Mengupdate History User"
+          },
+          "400": {
+            "description": "Gagal Mengupdate History User"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["UserGameHistory"],
+        "summary": "Delete history user by history Id in UserGameHistory",
+        "description": "",
+        "operationId": "deleteIdBiodataHistory",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Get User Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "historyId",
+            "in": "path",
+            "description": "Get History Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Menghapus Id History User"
+          },
+          "400": {
+            "description": "Gagal Menghapus Id History User"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "test@test.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "test"
+        }
+      }
+    },
+    "register": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Budiman"
+        },
+        "email": {
+          "type": "string",
+          "example": "budiman@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "budiman"
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jam Tangan Kotak"
+        },
+        "category": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "UserGame": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserGameBiodata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "user_game_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "UserGameHistory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "game": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_login": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "user_game_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

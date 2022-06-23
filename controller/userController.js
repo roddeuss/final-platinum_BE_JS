@@ -24,6 +24,7 @@ module.exports = {
   },
   getProfile: (req, res) => {
     const id = req.session.userId;
+    console.log(req.session)
     models.user
       .findOne({
         where: {
@@ -39,6 +40,7 @@ module.exports = {
         });
       })
       .catch((err) => {
+        console.log(err)
         res.status(500).json({
           message: "Get Profile Gagal",
           success: false,
