@@ -12,7 +12,13 @@ const uploadImage = multer({ storage: multer.diskStorage({
         const unique = Date.now();
         let ext = file.originalname.split('.');
         ext = ext[ext.length - 1];
-        cb(null, `${file.fieldname}-${unique}.${ext}`);
+        let fileName = `${file.fieldname}-${unique}.${ext}`;
+        cb(null, fileName);
+
+        if(!req.fileUploads){
+            req.fileUploads = []
+        }
+        req.fileUploads.push(fileName);
     }
 }), fileFilter: (req, file, cb) => {
     if(file.mimetype == 'image/png' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/jpg'){
@@ -29,8 +35,8 @@ router.get('/product/:id', product.getProductId)
 // router.get('/addProduct', function(req, res) {
 //     res.render('views/uploadImage')
 // })
-router.post('/product', restrict, uploadImage.array('images-product', 5), product.postProduct)
-router.put('/product/:id', restrict, uploadImage.array('images-product', 5), product.putProduct)
+router.post('/product', restrict, uploadImage.array('image', 5), product.postProduct)
+router.put('/product/:id', restrict, uploadImage.array('image', 5), product.putProduct)
 router.post('/product/publish/:id', restrict, product.publishProduct)
 router.post('/product/keep/:id', restrict, product.keepProduct)
 router.delete('/product/:id', restrict, product.deleteProduct)

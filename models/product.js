@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     category: DataTypes.STRING,
     price: DataTypes.INTEGER,
     description: DataTypes.TEXT,
-    // images: DataTypes.TEXT,
+    images: DataTypes.ARRAY(DataTypes.STRING),
     isSold: DataTypes.BOOLEAN,
     publish: DataTypes.BOOLEAN
   }, {

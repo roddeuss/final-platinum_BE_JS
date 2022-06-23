@@ -14,15 +14,9 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(session({
   secret: 'Ini rahasia banget',
-<<<<<<< HEAD
   resave: true,
   saveUninitialized: false,
   cookie: {maxAge: 1000 * 60 * 60 * 24}
-=======
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 }
->>>>>>> e2c92cfa21184716cccd859f9da15ea321b14a68
 }))
 
 app.set("view engine", "ejs");
