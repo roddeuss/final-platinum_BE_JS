@@ -12,13 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // wishlist.belongTo(models.user, {foreingKey: 'id', as: 'users'})
-      // wishlist.belongsToMany(models.product, {through: 'product_id',foreignKey: 'id', as: 'product'})
+      this.belongsTo(models.product, { foreignKey: 'productId', as: 'product', unique: false })
     }
   }
   wishlist.init({
-    user_id: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    productId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'wishlist',
