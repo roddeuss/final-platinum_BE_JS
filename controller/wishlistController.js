@@ -16,7 +16,7 @@ module.exports = {
                     productId: data.product_id,
                 }).then((wishlist) => {
                     res.status(200).json({
-                        message: "wishlist Bershasil",
+                        message: "Success create wishlist",
                         success: true,
                         data: wishlist
                     })
@@ -26,10 +26,15 @@ module.exports = {
                         success: false,
                     })
                 })
+            } else {
+                res.status(500).json({
+                    message: "wishlist Gagal",
+                    success: false,
+                });
             }
         }).catch((err) => {
             res.status(500).json({
-                message: err.message,
+                message: "Failed add wishlist",
                 success: false,
             })
         })
@@ -50,6 +55,38 @@ module.exports = {
                 success: true,
                 data: result,
             })
+        }).catch((err) => {
+            res.status(500).json({
+                message: "Failed get wishlist",
+                success: false,
+            })
         })
+    },
+
+    deleteWishlist: (req, res) => {
+        models.wishlist.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+            .then((wishlist) => {
+                if (wishlist) {
+
+                    res.status(200).json({
+                        message: "Success delete wishlist",
+                        success: true,
+                    })
+                } else {
+                    res.status(500).json({
+                        message: "wishlist Gagal",
+                        success: false,
+                    });
+                }
+            }).catch((err) => {
+                res.status(500).json({
+                    message: "failed delete wishlist",
+                    success: false,
+                })
+            })
     }
 }
