@@ -52,47 +52,40 @@ module.exports = {
                 res.json({message: "Gagal Update Tawar", success: false, data: {}})
             })
     },
-//     test: (req, res) => {
-//         models.product.findOne({
-//             where: {
-//                 id: data.product_id,
-//                 publish: true,
-//                 isSold: false,
-//         },
-//         }).then(() => {
-//             models.tawar.create({
-//                 user_id: data.user_id,
-//                 product_id: data.product_id,
-//                 price: data.price,
-//         }). then((tawar) => {
-//             res.status(200).json({
-//                 message: "Tawar Berhasil",
-//                 success: true,
-//                 data: tawar
-//             })
-//         })
-//         }).catch((err) => {
-//             res.status(400).json({
-//                 message: err.message,
-//                 success: false,
-//         });
-//     })
-//   },
-//   getTawar: (req, res) => {
-//     models.tawar.findAll({
-//     })
-//       .then((tawar) => {
-//         res.status(200).json({
-//           message: "Succes get Tawar",
-//           success: true,
-//           data: tawar,
-//         });
-//       }
-//       ).catch((err) => {
-//         res.status(400).json({
-//           message: err.message,
-//           success: false,
-//         });
-//       })
-//   }
+    deleteTawar: (req, res) => {
+        const {id} = req.params
+        tawar.delete({where: {id}})
+        .then((success) => {
+            res.json({message: "Success Delete Tawar", success: true, data: {success}})
+        })
+        .catch( err => {
+            res.json({message: "Gagal Delete Tawar", success: false, data: {}})
+        })
+    },
+    getTawarId: (req, res) => {
+        models.product.findOne({
+            where: {
+                id: data.product_id,
+                publish: true,
+                isSold: false,
+        },
+        }).then(() => {
+            models.tawar.create({
+                user_id: data.user_id,
+                product_id: data.product_id,
+                price: data.price,
+        }). then((tawar) => {
+            res.status(200).json({
+                message: "Tawar Berhasil",
+                success: true,
+                data: tawar
+            })
+        })
+        }).catch((err) => {
+            res.status(400).json({
+                message: err.message,
+                success: false,
+        });
+    })
+  }
 };

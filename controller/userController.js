@@ -2,7 +2,7 @@ const models = require("../models");
 
 module.exports = {
   updateProfile: (req, res) => {
-    const id = req.session.userId;
+    const id = req.user.id;
     const data = req.body;
     console.log(req.file);
 

@@ -1,4 +1,5 @@
 node_modules/
 config/
 views/
-public/images/
+public/images/*
+public/profile/*

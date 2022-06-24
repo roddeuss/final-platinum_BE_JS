@@ -42,7 +42,9 @@ module.exports = {
             return res.json({message: "Login Dulu", success: false, data: {}})
         }
         const userId = req.user.id
+        // const userId = 1;
         const files = req.fileUploads
+        console.log(req.files)
         console.log(userId, name, category, price, files, description)
         product.create({userId, name, category, price, description, images: files})
         .then((product) => {
