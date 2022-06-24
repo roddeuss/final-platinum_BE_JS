@@ -30,7 +30,7 @@ module.exports = {
             })
         });
       } else {
-        res.status(400).json({
+        res.status(500).json({
           message: "Transaksi Gagal",
           success: false,
         });
@@ -58,7 +58,7 @@ module.exports = {
         });
       }
       ).catch((err) => {
-        res.status(400).json({
+        res.status(500).json({
           message: err.message,
           success: false,
         });
@@ -78,7 +78,7 @@ module.exports = {
           data: result,
         })
       }).catch((err) => {
-        res.status(400).json({
+        res.status(500).json({
           message: err.message,
           success: false
         })
