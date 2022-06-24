@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   notifProduct.init({
-    product_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
+    productId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     tawar: DataTypes.STRING,
     status: DataTypes.BOOLEAN
   }, {

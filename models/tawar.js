@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.user, {foreignKey: 'id' , as: 'user', unique: false})
-      this.belongsTo(models.product, {foreignKey: 'id' , as: 'product', unique: false})
+      this.belongsTo(models.product, { foreignKey: 'productId', as: 'product', unique: false })
     }
   }
   tawar.init({

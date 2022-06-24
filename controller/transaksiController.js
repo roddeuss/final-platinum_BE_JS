@@ -16,7 +16,8 @@ module.exports = {
           { where: { id: data.product_id } }
         ).then(() => {
           models.transaksi.create({
-            user_id: data.user_id,
+            buyer_id: data.buyer_id,
+            seller_id: data.seller_id, // || req.user.id
             productId: data.product_id,
             price: data.price,
           })
@@ -43,11 +44,11 @@ module.exports = {
       include: [
         {
           model: models.product, as: "product",
-          where: {
-            userId: req.session.userId,
-          }
         },
       ],
+      where: {
+        seller_id: req.user.id
+      }
     })
       .then((transaksi) => {
         res.status(200).json({
@@ -61,6 +62,26 @@ module.exports = {
           message: err.message,
           success: false,
         });
+      })
+  },
+
+  getDetailTransaksi: (req, res) => {
+    models.transaksi.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then((result) => {
+        res.status(200).json({
+          message: "Succes get transaksi",
+          success: true,
+          data: result,
+        })
+      }).catch((err) => {
+        res.status(400).json({
+          message: err.message,
+          success: false
+        })
       })
   }
 

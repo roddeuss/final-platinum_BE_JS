@@ -42,15 +42,11 @@ module.exports = {
             return res.json({message: "Login Dulu", success: false, data: {}})
         }
         const userId = req.user.id
-        const files = req.files
-        console.log(userId, name, category, price, description)
-        product.create({userId, name, category, price, description})
+        const files = req.fileUploads
+        console.log(userId, name, category, price, files, description)
+        product.create({userId, name, category, price, description, images: files})
         .then((product) => {
             console.log(product)
-            files.map(function(file){
-                console.log(product.id, file.filename)
-                productImage.create({productId: product.id, image: file.filename})
-            })
             res.json({message: "Success tambah product", success: true, data: {product}})
         })
         .catch(err => {

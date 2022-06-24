@@ -1,55 +1,66 @@
-const {tawar, product} = require("../models");
+const models = require("../models")
 
-module.exports = {
-    getTawar: (req, res) => {
-        tawar.findAll({include: "product"})
-        .then(tawars => {
-            console.log(tawars)
-            res.json({message: "Tawar Ditemukan", success: true, data: {tawars}})
-        })
-        .catch(err => {
-            console.log(err)
-            res.json({message:  "Tawar Tidak Ditemukan", success: false, data:{}})
-        })
-    },
-    getTawarProduct: (req, res) =>{
-        const {productId} = req.params
-        tawar.findAll({where: {product_id: productId}})
-        .then(tawars => {
-            if(tawars.length == 0){
-                res.json({message: "Tawaran Product Kosong", success: true, data:{tawar}})
-            } else {
-                res.json({message: "Tawaran Product Ditemukan", success: true, data:{tawars}})
+module.export = {
+    createTawar: (req, res) => {
+        let id = req.user.id;
+        let data = req.body;
+
+        models.product.findOne({
+            where: {
+                userId: id
             }
-        })
-        .catch(err => {
-            console.error(err)
-            res.json({message: "Tawaran Product Gagal Ditemukan", success: true, data: {}})
+        }).then((product) => {
+            if(product) {
+                models.tawar.create({
+                    userId: id,
+                    productId : productId,
+                    price: price,
+                }).then((tawar) => {
+                    res.status(200).json({
+                        message: "Success create tawar",
+                        success: true,
+                        data:tawar
+                    })
+                }).catch((err) => {
+                    res.status(500).json({
+                        message: err.message,
+                        success: false,
+                    })
+                })
+            } else {
+                res.status(500).json({
+                    message: "Tawar Tidak Berhasil",
+                    success: false
+                })
+            }
+        }).catch((err) => {
+            res.status(500).json({
+                message: "Gagal Tawar",
+                success: false,
+            })
         })
     },
-    postTawar: (req, res) =>{
-        const {userId, productId, price} = req.body
-        console.log(userId, productId, price)
-        tawar.create({userId, productId, price})
-        .then((tawar) => {
-            console.log(tawar)
-            res.json({message: "Success Tawar Product", success: true, data:{tawars}})
-        })
-        .catch(err => {
-            res.json({message: "Gagal Tawar Product", success: false, data:{}})
-        })
-    },
-    putTawar: (req, res) => {
-        const {product_id, price, status} = req.body
-        console.log(product_id, price, status)
-        tawar.update({product_id, price, status}, 
-            {where: { id: req.params.id}})
-            .then((tawar) => {
-                console.log(tawar)
-                res.json({message: "Success Update Tawar", success:true, data: {tawar}})
+    getTawar: (req, res) => {
+        models.tawar.findAll({
+            where: {
+                userId : req.user.id
+            },
+            include: [
+                {
+                    model: models.product, as: "product",
+                },
+            ],
+        }).then((result) => {
+            res.status(200).json({
+                message: "success get tawar",
+                success: true,
+                data: result,
             })
-            .catch( err => {
-                res.json({message: "Gagal Update Tawar", success: false, data: {}})
+        }).catch((err) => {
+            res.status(500).json({
+                message: "failed get tawar",
+                success: false,
             })
+        })
     }
-};
+}
