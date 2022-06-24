@@ -18,7 +18,7 @@ module.exports = {
       })
       .catch((err) => {
         res
-          .status(200)
+          .status(500)
           .json({ message: "Failed update profile", success: false });
       });
   },
