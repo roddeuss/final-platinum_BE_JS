@@ -1,4 +1,4 @@
-const {user, product, productImage} = require("../models")
+const {user, product} = require("../models")
 
 module.exports = {
     checkUser: (req, res, next) => {
@@ -14,7 +14,7 @@ module.exports = {
         })
     },
     getProduct: (req, res) => {
-        product.findAll({where: {isSold: false, publish: true}, include: ['productImage']})
+        product.findAll({where: {isSold: false, publish: true}})
         .then(products => {
             if(products.length == 0){
                 res.json({message: "Product Kosong", success: true, data: {products}})
@@ -28,7 +28,7 @@ module.exports = {
         })
     },
     getUserProduct: (req, res) => {
-        product.findAll({where: {userId: req.user.id}, include: ['productImage']})
+        product.findAll({where: {userId: req.user.id}})
         .then(products => {
             res.json({message: "Product User Ditemukan", success: true, data: {products}})
         })
@@ -59,17 +59,12 @@ module.exports = {
     putProduct: (req, res) => {
         const {name, category, price, description} = req.body
         const userId = req.user.id
-        const files = req.files
+        const files = req.fileUploads
         console.log(userId, name, category, price, description)
-        product.update({userId, name, category, price, description},
+        product.update({userId, name, category, price, description, images: files},
             {where: { id: req.params.id }})
         .then((product) => {
             console.log(product)
-            productImage.destroy({where: {productId: req.params.id}})
-            files.map(function(file){
-                console.log(product.id, file.filename)
-                productImage.create({productId: product.id, image: file.filename})
-            })
             res.json({message: "Success update product", success: true, data: {product}})
         })
         .catch(err => {
@@ -77,21 +72,30 @@ module.exports = {
         })
     },
     getProductId: (req, res) => {
-        product.findOne({where: {id: req.params.id}})
+        product.findOne({where: {id: req.params.id}, include: [{
+            model: user,
+            as: "users"
+            // where: {id: product.userId}
+        }]})
         .then(product => {
             if(product.length < 1) {
                 error
             }
-            productImage.findAll({where: {productId: +req.params.id}})
-            .then(images => {
-                res.json({message: "Product Id Ditemukan", success: true, data: {product, images}})
-            })
-            .catch(err => {
-                res.json({message: "Image Product Gagal Ditemukan", success: false, data: {product, images: {}}})
-            })
+            res.json({message: "Product Id Ditemukan", success: true, data: {product}})
         })
         .catch(err => {
             res.json({message: "Product Id Gagal Ditemukan", success: false, data: {}})  
+        })
+    },
+    getProductSold: (req, res) => {
+        product.findAll({where: {userId: req.user.id, sold: true}})
+        .then(productSold => {
+            if(productSold.length < 1) {
+                error
+            }
+            res.json({message: "Product Ditemukan", success: true, data: {productSold}})
+        }).catch(err => {
+            res.json({message: "Tidak ada product yang terjual", success: true, data: {}})
         })
     },
     publishProduct: (req, res) => {

@@ -26,6 +26,8 @@ const passport = require('./lib/passport');
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use('/public', express.static('public'))
+
 app.use(cors())
 // app.use(flash())
 
