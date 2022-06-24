@@ -8,7 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      buyer_id: {
+        type: Sequelize.INTEGER
+      },
+      seller_id: {
         type: Sequelize.INTEGER
       },
       productId: {
@@ -19,9 +22,6 @@ module.exports = {
         },
         onUpdate: "cascade",
         onDelete: "cascade"
-      },
-      qty: {
-        type: Sequelize.INTEGER
       },
       price: {
         type: Sequelize.INTEGER
