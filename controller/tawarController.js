@@ -1,4 +1,4 @@
-const models = require("../models");
+const {tawar, product} = require("../models");
 
 module.exports = {
     getTawar: (req, res) => {
@@ -17,7 +17,7 @@ module.exports = {
         tawar.findAll({where: {product_id: productId}})
         .then(tawars => {
             if(tawars.length == 0){
-                res.json({message: "Tawaran Product Kosong", success: true, data:{tawars}})
+                res.json({message: "Tawaran Product Kosong", success: true, data:{tawar}})
             } else {
                 res.json({message: "Tawaran Product Ditemukan", success: true, data:{tawars}})
             }
@@ -28,9 +28,9 @@ module.exports = {
         })
     },
     postTawar: (req, res) =>{
-        const {product_id, price, status} = req.body
-        console.log(product_id, price, status)
-        tawar.create({product_id, price, status})
+        const {userId, productId, price} = req.body
+        console.log(userId, productId, price)
+        tawar.create({userId, productId, price})
         .then((tawar) => {
             console.log(tawar)
             res.json({message: "Success Tawar Product", success: true, data:{tawars}})
@@ -51,49 +51,5 @@ module.exports = {
             .catch( err => {
                 res.json({message: "Gagal Update Tawar", success: false, data: {}})
             })
-    },
-    models.product.findOne({
-      where: {
-        id: data.product_id,
-        publish: true,
-        isSold: false,
-      },
-    }).then(() => {
-        models.tawar.create({
-            user_id: data.user_id,
-            product_id: data.product_id,
-            price: data.price,
-        }). then((tawar) => {
-            res.status(200).json({
-                message: "Tawar Berhasil",
-                success: true,
-                data: tawar
-            })
-        })
-    }).catch((err) => {
-        res.status(400).json({
-            message: err.message,
-            success: false,
-        });
-    })
-  },
-
-  getTawar: (req, res) => {
-
-    models.tawar.findAll({
-    })
-      .then((tawar) => {
-        res.status(200).json({
-          message: "Succes get Tawar",
-          success: true,
-          data: tawar,
-        });
-      }
-      ).catch((err) => {
-        res.status(400).json({
-          message: err.message,
-          success: false,
-        });
-      })
-  }
+    }
 };
