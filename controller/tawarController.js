@@ -1,8 +1,8 @@
 const models = require("../models")
 
-module.export = {
+module.exports = {
     createTawar: (req, res) => {
-        let id = req.user.id;
+        let id = userId;
         let data = req.body;
 
         models.product.findOne({
@@ -10,16 +10,16 @@ module.export = {
                 userId: id
             }
         }).then((product) => {
-            if(product) {
+            if (product) {
                 models.tawar.create({
                     userId: id,
-                    productId : productId,
+                    productId: data.productId,
                     price: price,
                 }).then((tawar) => {
                     res.status(200).json({
                         message: "Success create tawar",
                         success: true,
-                        data:tawar
+                        data: tawar
                     })
                 }).catch((err) => {
                     res.status(500).json({
@@ -29,13 +29,13 @@ module.export = {
                 })
             } else {
                 res.status(500).json({
-                    message: "Tawar Tidak Berhasil",
-                    success: false
-                })
+                    message: "tawar Gagal",
+                    success: false,
+                });
             }
         }).catch((err) => {
             res.status(500).json({
-                message: "Gagal Tawar",
+                message: "Failed add tawar",
                 success: false,
             })
         })
@@ -43,7 +43,7 @@ module.export = {
     getTawar: (req, res) => {
         models.tawar.findAll({
             where: {
-                userId : req.user.id
+                userId: req.user.id
             },
             include: [
                 {
@@ -52,15 +52,15 @@ module.export = {
             ],
         }).then((result) => {
             res.status(200).json({
-                message: "success get tawar",
+                message: "Success get tawar",
                 success: true,
                 data: result,
             })
         }).catch((err) => {
             res.status(500).json({
-                message: "failed get tawar",
+                message: "Failed get tawar",
                 success: false,
             })
         })
-    }
+    },
 }

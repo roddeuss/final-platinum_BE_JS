@@ -1,9 +1,8 @@
 const express = require("express")
 const router = express.Router()
-const tawar =  require("../controller/tawarController")
-const restrict = require('../middleware/restrict')
+const tawar = require('../controller/tawarController')
 
-router.post("/tawars", restrict, tawar.createTawar)
-router.get("/tawars", restrict, tawar.getTawar)
+router.post("/tawar",  tawar.createTawar)
+router.get("/tawar",  tawar.getTawar)
 
 module.exports = router
