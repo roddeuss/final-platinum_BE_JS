@@ -2,9 +2,8 @@ const models = require("../models")
 
 module.exports = {
     createTawar: (req, res) => {
-        let id = userId;
-        let data = req.body;
-
+        let id = req.user.id;
+        
         models.product.findOne({
             where: {
                 userId: id
@@ -13,7 +12,7 @@ module.exports = {
             if (product) {
                 models.tawar.create({
                     userId: id,
-                    productId: data.productId,
+                    productId: req.body.productId,
                     price: price,
                 }).then((tawar) => {
                     res.status(200).json({
