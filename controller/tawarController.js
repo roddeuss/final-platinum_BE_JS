@@ -64,4 +64,31 @@ module.exports = {
             })
         })
     },
+
+    deleteTawar: (req, res) => {
+        models.tawar.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+            .then((tawar) => {
+                if (tawar) {
+
+                    res.status(200).json({
+                        message: "Success delete Tawar",
+                        success: true,
+                    })
+                } else {
+                    res.status(500).json({
+                        message: "Tawar Gagal",
+                        success: false,
+                    });
+                }
+            }).catch((err) => {
+                res.status(500).json({
+                    message: "failed delete tawar",
+                    success: false,
+                })
+            })
+    }
 }
