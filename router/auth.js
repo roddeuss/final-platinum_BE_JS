@@ -13,7 +13,7 @@ const cekAuth = (req, res, next) => {
 }
 
 router.get('/', cekAuth, function (req, res){
-    let userLog = req.session.userId
+    let userLog = req.user.id
     res.json({message: `Halaman Home ${userLog}`, success: true, data: { userLog }})
 })
 router.get('/login', function (req, res, next) {
