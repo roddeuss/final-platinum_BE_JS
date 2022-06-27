@@ -13,6 +13,19 @@ module.exports = {
             res.json({message: "Login Dulu", success: false, data: {}})
         })
     },
+    checkProduct: (req, res, next) => {
+        product.findAll({where: {userId: req.user.id} })
+        .then(products => {
+            if(products.length < 4){
+                next()
+            } else {
+                res.json({message: "Productmu sudah lebih dari 4", success: false, data: {}})
+            }
+        })
+        .catch(err =>{
+            res.json({message: "Product user gagal ditemukan", success: false, data: {}})
+        })
+    },
     getProduct: (req, res) => {
         product.findAll({where: {isSold: false, publish: true}})
         .then(products => {
@@ -42,11 +55,29 @@ module.exports = {
             return res.json({message: "Login Dulu", success: false, data: {}})
         }
         const userId = req.user.id
-        // const userId = 1;
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
         product.create({userId, name, category, price, description, images: files})
+        .then((product) => {
+            console.log(product)
+            res.json({message: "Success tambah product", success: true, data: {product}})
+        })
+        .catch(err => {
+            console.log(err)
+            res.json({message: "Gagal tambah product", success: false, data: {}})
+        })
+    },
+    postPublishProduct: (req, res) => {
+        const {name, category, price, description} = req.body
+        if(!req.user){
+            return res.json({message: "Login Dulu", success: false, data: {}})
+        }
+        const userId = req.user.id
+        const files = req.fileUploads
+        console.log(req.files)
+        console.log(userId, name, category, price, files, description)
+        product.create({userId, name, category, price, description, images: files, publish: true})
         .then((product) => {
             console.log(product)
             res.json({message: "Success tambah product", success: true, data: {product}})
@@ -61,7 +92,7 @@ module.exports = {
         const userId = req.user.id
         const files = req.fileUploads
         console.log(userId, name, category, price, description)
-        product.update({userId, name, category, price, description, images: files},
+        product.update({userId, name, category, price, description, images: files, publish: true},
             {where: { id: req.params.id }})
         .then((product) => {
             console.log(product)
@@ -75,7 +106,6 @@ module.exports = {
         product.findOne({where: {id: req.params.id}, include: [{
             model: user,
             as: "users"
-            // where: {id: product.userId}
         }]})
         .then(product => {
             if(product.length < 1) {
