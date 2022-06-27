@@ -1,4 +1,4 @@
-require('dotenv').config({path: __dirname + '/.env'})
+require('dotenv').config({ path: __dirname + '/.env' })
 const express = require('express');
 const app = express();
 // const flash = require('flash');
@@ -16,7 +16,7 @@ app.use(session({
   secret: 'Ini rahasia banget',
   resave: true,
   saveUninitialized: false,
-  cookie: {maxAge: 1000 * 60 * 60 * 24}
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }))
 
 app.set("view engine", "ejs");
@@ -35,7 +35,8 @@ const authRoute = require('./router/auth');
 const usersRoute = require('./router/users');
 const productRoute = require('./router/product');
 const tawarRoute = require('./router/tawar')
-const transaksiRoue = require('./router/transaksi')
+const transaksiRoute = require('./router/transaksi')
+const wishlistRoute = require('./router/wishlist')
 
 app.use(express.json());
 
@@ -43,7 +44,8 @@ app.use(authRoute);
 app.use(usersRoute);
 app.use(productRoute);
 app.use(tawarRoute);
-app.use(transaksiRoue);
+app.use(transaksiRoute);
+app.use(wishlistRoute)
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJSON))
 

@@ -18,13 +18,12 @@ module.exports = {
       })
       .catch((err) => {
         res
-          .status(200)
+          .status(500)
           .json({ message: "Failed update profile", success: false });
       });
   },
   getProfile: (req, res) => {
-    const id = req.session.userId;
-    console.log(req.session)
+    const id = req.user.id;
     models.user
       .findOne({
         where: {

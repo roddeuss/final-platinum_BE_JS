@@ -1,26 +1,24 @@
 const models = require("../models")
 
 module.exports = {
-    createTawar: (req, res) => {
-        const{userId, productId, price} = req.body
+    createWishlist: (req, res) => {
         let id = req.user.id;
-        
+        let data = req.body;
+
         models.product.findOne({
             where: {
                 userId: id
             }
         }).then((product) => {
             if (product) {
-                console.log(userId, productId, price)
-                models.tawar.create({
+                models.wishlist.create({
                     userId: id,
-                    productId: req.body.productId,
-                    price: price,
-                }).then((tawar) => {
+                    productId: data.product_id,
+                }).then((wishlist) => {
                     res.status(200).json({
-                        message: "Success create tawar",
+                        message: "Success create wishlist",
                         success: true,
-                        data: tawar
+                        data: wishlist
                     })
                 }).catch((err) => {
                     res.status(500).json({
@@ -30,19 +28,19 @@ module.exports = {
                 })
             } else {
                 res.status(500).json({
-                    message: "tawar Gagal",
+                    message: "wishlist Gagal",
                     success: false,
                 });
             }
         }).catch((err) => {
             res.status(500).json({
-                message: "Failed add tawar",
+                message: "Failed add wishlist",
                 success: false,
             })
         })
     },
-    getTawar: (req, res) => {
-        models.tawar.findAll({
+    getWishlist: (req, res) => {
+        models.wishlist.findAll({
             where: {
                 userId: req.user.id
             },
@@ -53,40 +51,40 @@ module.exports = {
             ],
         }).then((result) => {
             res.status(200).json({
-                message: "Success get tawar",
+                message: "Success get wishlist",
                 success: true,
                 data: result,
             })
         }).catch((err) => {
             res.status(500).json({
-                message: "Failed get tawar",
+                message: "Failed get wishlist",
                 success: false,
             })
         })
     },
 
-    deleteTawar: (req, res) => {
-        models.tawar.destroy({
+    deleteWishlist: (req, res) => {
+        models.wishlist.destroy({
             where: {
                 id: req.params.id
             }
         })
-            .then((tawar) => {
-                if (tawar) {
+            .then((wishlist) => {
+                if (wishlist) {
 
                     res.status(200).json({
-                        message: "Success delete Tawar",
+                        message: "Success delete wishlist",
                         success: true,
                     })
                 } else {
                     res.status(500).json({
-                        message: "Tawar Gagal",
+                        message: "wishlist Gagal",
                         success: false,
                     });
                 }
             }).catch((err) => {
                 res.status(500).json({
-                    message: "failed delete tawar",
+                    message: "failed delete wishlist",
                     success: false,
                 })
             })

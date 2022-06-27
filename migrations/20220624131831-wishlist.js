@@ -1,29 +1,21 @@
 'use strict';
+
+const { sequelize } = require("../models");
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('transaksis', {
+
+    await queryInterface.createTable('wishlists', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      buyer_id: {
-        type: Sequelize.INTEGER
-      },
-      seller_id: {
+      userId: {
         type: Sequelize.INTEGER
       },
       productId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'products',
-          key: 'id'
-        },
-        onUpdate: "cascade",
-        onDelete: "cascade"
-      },
-      price: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -34,9 +26,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('transaksis');
+
+    await queryInterface.dropTable('wishlists');
   }
 };
