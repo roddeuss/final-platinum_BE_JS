@@ -50,7 +50,7 @@ module.exports = {
         })
     },
     postProduct: (req, res) => {
-        const {name, category, price, description} = req.body
+        const {name, category, price, description, publish} = req.body
         if(!req.user){
             return res.json({message: "Login Dulu", success: false, data: {}})
         }
@@ -58,26 +58,7 @@ module.exports = {
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
-        product.create({userId, name, category, price, description, images: files})
-        .then((product) => {
-            console.log(product)
-            res.json({message: "Success tambah product", success: true, data: {product}})
-        })
-        .catch(err => {
-            console.log(err)
-            res.json({message: "Gagal tambah product", success: false, data: {}})
-        })
-    },
-    postPublishProduct: (req, res) => {
-        const {name, category, price, description} = req.body
-        if(!req.user){
-            return res.json({message: "Login Dulu", success: false, data: {}})
-        }
-        const userId = req.user.id
-        const files = req.fileUploads
-        console.log(req.files)
-        console.log(userId, name, category, price, files, description)
-        product.create({userId, name, category, price, description, images: files, publish: true})
+        product.create({userId, name, category, price, description, images: files, publish})
         .then((product) => {
             console.log(product)
             res.json({message: "Success tambah product", success: true, data: {product}})

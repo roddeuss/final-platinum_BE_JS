@@ -12,11 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.user,{foreignKey: 'userId', as: 'user', unique:false})
-<<<<<<< HEAD
       // this.hasMany(models.productImage, {as: 'productImage'})
-=======
-      this.hasMany(models.productImage, {as: 'productImage'})
->>>>>>> 812c24172bb1a9d6e05103d2163be737c242fcec
       this.hasMany(models.tawar, {as: 'tawar'})
     }
   }

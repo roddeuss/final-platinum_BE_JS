@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server",
-    "migrate": "sequelize db:migrate",
+    "migrate": "sequelize db:migrate --env production",
     "seed-all": "sequelize db:seed:all",
     "undo-migrate": "sequelize db:migrate:undo:all"
   },
