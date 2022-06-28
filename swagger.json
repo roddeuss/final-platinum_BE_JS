@@ -1,0 +1,462 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Dokumentasi API Final Project BE",
+    "version": "1.0.0",
+    "title": "Dokumentasi API Final Project BE",
+    "contact": {
+      "url": "https://www.github.com/"
+    }
+  },
+  "host": "be-kel1.herokuapp.com",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "API Auth"
+    },
+    {
+      "name": "Product",
+      "description": "API Product"
+    }
+  ],
+  "schemes": ["https"],
+  "paths": {
+    "/login": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get /login",
+        "description": "",
+        "operationId": "getLogin",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Get /login"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user",
+        "description": "",
+        "operationId": "postLogin",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "form input",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil Login"
+          },
+          "400": {
+            "description": "Gagal Login"
+          }
+        }
+      }
+    },
+    "/logout":{
+      "post": {
+        "tags": ["Auth"],
+        "summary": "mehtod logout user",
+        "description": "Logout user",
+        "operationId": "postLogout",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Logut berhasil"
+          }
+        }
+      }
+    },
+    "/register":{
+      "get": {
+        "tags": ["Auth"],
+        "summary": "GET /register",
+        "description": "Get register page",
+        "operationId": "getRegister",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "GET Register success"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Auth"],
+        "summary": "POST /register",
+        "description": "Post register page",
+        "operationId": "postRegister",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "form input",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/register"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GET Register success"
+          }
+        }
+      }
+    },
+    "/products":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get All publish product",
+        "description": "",
+        "operationId": "getProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/product/user":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get All user product",
+        "description": "",
+        "operationId": "getUserProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/product/{productId}":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get Id publish product",
+        "description": "",
+        "operationId": "getIdProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      },
+      "put":{
+        "tags": ["Product"],
+        "summary": "Put Id product",
+        "description": "",
+        "operationId": "putIdProduct",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in" : "formData",
+            "description": "input name product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "category",
+            "in" : "formData",
+            "description": "input category product",
+            "required" : true,
+            "type" : "string",
+            "enum": ["A","B","C","D"]
+          },
+          {
+            "name": "price",
+            "in" : "formData",
+            "description": "input price product",
+            "required" : true,
+            "type" : "integer"
+          },
+          {
+            "name": "description",
+            "in" : "formData",
+            "description": "input description product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "description": "input image product",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "file",
+              "format": "binary"
+            }
+          },
+          {
+            "name": "publish",
+            "in": "formData",
+            "description": "input image product",
+            "required": true,
+            "type": "boolean",
+            "enum": [true, false]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Product"],
+        "summary": "Delete Id product",
+        "description": "",
+        "operationId": "deleteIdProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete product"
+          },
+          "400": {
+            "description": "Cannot delete product"
+          }
+        }
+      }
+    },
+    "/product/sold": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "GET Product sold",
+        "description": "",
+        "operationId": "getProductSold",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Get Product sold"
+          },
+          "400": {
+            "description": "Cannot get product sold"
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "POST product",
+        "description": "",
+        "operationId": "postProduct",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in" : "formData",
+            "description": "input name product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "category",
+            "in" : "formData",
+            "description": "input category product",
+            "required" : true,
+            "type" : "string",
+            "enum": ["A","B","C","D"]
+          },
+          {
+            "name": "price",
+            "in" : "formData",
+            "description": "input price product",
+            "required" : true,
+            "type" : "integer"
+          },
+          {
+            "name": "description",
+            "in" : "formData",
+            "description": "input description product",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "description": "input image product",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "file",
+              "format": "binary"
+            }
+          },
+          {
+            "name": "publish",
+            "in": "formData",
+            "description": "input image product",
+            "required": true,
+            "type": "boolean",
+            "enum": [true, false]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
+    "/product/publish/{productId}": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "Get Id publish product",
+        "description": "",
+        "operationId": "postPublishIdProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "post product publish id"
+          },
+          "400": {
+            "description": "Cannot publish product id"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "test@test.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "test"
+        }
+      }
+    },
+    "register": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Budiman"
+        },
+        "email": {
+          "type": "string",
+          "example": "budiman@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "budiman"
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jam Tangan Kotak"
+        },
+        "category": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
