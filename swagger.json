@@ -148,6 +148,11 @@
         "operationId": "getUserProducts",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Get product"
@@ -166,6 +171,11 @@
         "operationId": "getIdProducts",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "productId",
@@ -191,6 +201,11 @@
         "operationId": "putIdProduct",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "productId",
@@ -264,6 +279,11 @@
         "operationId": "deleteIdProducts",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "productId",
@@ -291,6 +311,11 @@
         "operationId": "getProductSold",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Get Product sold"
@@ -309,6 +334,11 @@
         "operationId": "postProduct",
         "consumes": ["multipart/form-data"],
         "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "name",
@@ -377,6 +407,11 @@
         "operationId": "postPublishIdProducts",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
         "parameters": [
           {
             "name": "productId",
