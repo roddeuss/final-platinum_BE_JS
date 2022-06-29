@@ -30,6 +30,7 @@ const uploadImage = multer({ storage: multer.diskStorage({
 }})
 
 router.get('/products', product.getProduct)
+router.get('/product?', product.getFilterCategory)
 router.get('/product/user', restrict, product.getUserProduct)
 router.get('/product/:id', product.getProductId)
 router.get('/product/sold', product.getProductSold)

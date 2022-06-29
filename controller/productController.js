@@ -1,4 +1,5 @@
 const {user, product} = require("../models")
+const Sequelize = require("sequelize")
 
 module.exports = {
     checkUser: (req, res, next) => {
@@ -38,6 +39,20 @@ module.exports = {
         .catch(err => {
             console.log(err)
             res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
+        })
+    },
+    getFilterCategory: (req, res) => {
+        const category = req.query.cat
+        if(!category){
+            return res.json({message: "Use /product?cat=value", success: false, data: {}})
+        }
+        product.findAll({where: {
+            category: {[Sequelize.Op.iLike]: `%${category}%`}
+        }}).then(filtered => {
+            res.json({message: `Product Category ${category} Ditemukan`, success: true, data: {filtered}})
+        }).catch(err => {
+            console.error(err)
+            res.json({message: `Product Category ${category} gagal Ditemukan`, success: false, data: {}})
         })
     },
     getUserProduct: (req, res) => {
