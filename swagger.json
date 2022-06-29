@@ -481,6 +481,125 @@
         }
       }
     },
+    "/tawar": {
+      "get":{
+        "tags":["Tawar"],
+        "summary": "Get All Tawar",
+        "description" : "",
+        "operationId": "getTawar",
+        "consumes" :["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+          "Authorization" : []
+          }
+        ],
+        "responses" :{
+          "200" : {
+            "description": "succes get tawar"
+          },
+          "500":{
+            "description" : "failed get tawar"
+          }
+        }
+      },
+      "post" : {
+        "tags": ["Tawar"],
+        "summary": "Get All Tawar",
+        "description": "",
+        "operationId": "createTawar",
+        "consumes":["application/json"],
+        "produces":["application/json"],
+        "security":[
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters":[ 
+          {
+            "name" : "userId",
+            "in" : "path",
+            "description" : "get User Id",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in" : "formData",
+            "description": "input price tawar",
+            "required" : true,
+            "type" : "integer"
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Success get tawar"
+          },
+          "500" : {
+            "description" : "Failed get tawar"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["tawar"],
+        "summary": "Delete Id tawar",
+        "description": "",
+        "operationId": "deleteTawar",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete product"
+          },
+          "400": {
+            "description": "Cannot delete product"
+          }
+        }
+      }
+    },
+    "/tawar/product/{productid}" :{
+      "get": {
+        "tags": ["Tawar"],
+        "summary": "Get Tawar Product",
+        "description": "",
+        "operationId": "getTawarProduct",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Get Product Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+    }
+  },
     "/wishlist": {
       "get": {
         "tags": ["Wishlist"],
