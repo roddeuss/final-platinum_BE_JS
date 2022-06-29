@@ -20,6 +20,12 @@
     "host": "ec2-44-195-162-77.compute-1.amazonaws.com",
     "port": "5432",
     "url": "postgres://rvzmadtfysrmfy:4007fc153e4e7c49dbf07b737da9923945f034fce0ad283b5d53fe4b74732b97@ec2-44-195-162-77.compute-1.amazonaws.com:5432/dae8m3s3igev0t",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": { 
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
