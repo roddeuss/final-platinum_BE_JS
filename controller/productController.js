@@ -41,10 +41,24 @@ module.exports = {
             res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
         })
     },
+    getSearchProduct: (req, res) => {
+        const name = req.query.search
+        if(!name){
+            return res.json({message: "Use /product?search=value", success: false, data: {}})
+        }
+        product.findAll({where: {
+            name: {[Sequelize.Op.iLike]: `%${name}%`}
+        }}).then(filtered => {
+            res.json({message: `Product Search ${name} Ditemukan`, success: true, data: {filtered}})
+        }).catch(err => {
+            console.error(err)
+            res.json({message: `Product Search ${name} gagal Ditemukan`, success: false, data: {}})
+        })
+    },
     getFilterCategory: (req, res) => {
         const category = req.query.cat
         if(!category){
-            return res.json({message: "Use /product?cat=value", success: false, data: {}})
+            return res.json({message: "Use /product/filter?cat=value", success: false, data: {}})
         }
         product.findAll({where: {
             category: {[Sequelize.Op.iLike]: `%${category}%`}
