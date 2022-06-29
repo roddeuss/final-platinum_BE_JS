@@ -17,6 +17,14 @@
     {
       "name": "Product",
       "description": "API Product"
+    },
+    {
+      "name": "User",
+      "description": "API User"
+    },
+    {
+      "name": "Wishlist",
+      "description": "API Wishlist"
     }
   ],
   "schemes": ["https"],
@@ -387,21 +395,159 @@
           }
         }
       }
+    },
+    "/users/profile": {
+      "get" :{
+        "tags" : ["User"],
+        "summary" : "GET Profile",
+        "description" : "",
+        "operationId" : "getProfile",
+        "consumes" : ["application/json"],
+        "produces" : ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Get Profile Berhasil"
+          },
+          "500" : {
+            "description" : "Get Profile Gagal"
+          }
+        }
+      },
+      "put" :{
+        "tags" : ["User"],
+        "summary" : "Update Profile",
+        "description" : "",
+        "operationId" : "putProfile",
+        "consumes": ["multipart/form-data"],
+        "produces" : ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters" : [
+          {
+            "name" : "name",
+            "in" : "formData",
+            "description" : "input name user",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name" : "city",
+            "in" : "formData",
+            "description" : "input city user",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name" : "address",
+            "in" : "formData",
+            "description" : "input address user",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name" : "number_mobile",
+            "in" : "formData",
+            "description" : "input number_mobile user",
+            "required" : true,
+            "type" : "string"
+          },
+          {
+            "name" : "image",
+            "in": "formData",
+            "description": "input image user",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "file",
+              "format": "binary"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Success update profile"
+          },
+          "500" : {
+            "description" : "Failed update profile"
+          }
+        }
+      }
+    },
+    "/wishlist": {
+      "get": {
+        "tags": ["Wishlist"],
+        "summary": "Get all wishlist",
+        "description": "",
+        "operationId": "getWishlist",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Success get wishlist"
+          },
+          "500" : {
+            "description" : "Failed get wishlist"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Wishlist"],
+        "summary": "Add wishlist",
+        "description": "",
+        "operationId": "createWishlist",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "body",
+            "description": "input productId",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_id": {
+                  "type": "integer"
+                }
+              }
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success create wishlist"
+          },
+          "500": {
+            "description": "Failed create wishlist"
+          }
+        }
+        
+      }
     }
   },
   "securityDefinitions": {
-    "petstore_auth": {
-      "type": "oauth2",
-      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
-      "flow": "implicit",
-      "scopes": {
-        "write:pets": "modify pets in your account",
-        "read:pets": "read your pets"
-      }
-    },
-    "api_key": {
+    "Authorization": {
       "type": "apiKey",
-      "name": "api_key",
+      "name": "Authorization",
       "in": "header"
     }
   },

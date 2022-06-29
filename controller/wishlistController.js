@@ -7,7 +7,7 @@ module.exports = {
 
         models.product.findOne({
             where: {
-                userId: id
+                id: data.product_id
             }
         }).then((product) => {
             if (product) {
@@ -27,8 +27,8 @@ module.exports = {
                     })
                 })
             } else {
-                res.status(500).json({
-                    message: "wishlist Gagal",
+                res.status(404).json({
+                    message: "wishlist gagal atau product tidak ditemukan",
                     success: false,
                 });
             }
