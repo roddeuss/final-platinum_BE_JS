@@ -86,7 +86,8 @@ module.exports = {
     getProductId: (req, res) => {
         product.findOne({where: {id: req.params.id}, include: [{
             model: user,
-            as: "users"
+            as: "user",
+            attributes: { exclude: ["password"] }
         }]})
         .then(product => {
             if(product.length < 1) {
