@@ -64,6 +64,31 @@ module.exports = {
             })
         })
     },
+    
+    getTawarProduct:  (req, res) => {
+        // const {productId} = req.params.id
+        models.tawar.findOne({
+            where: {
+                productId: req.params.id
+            },
+            include: [
+                {
+                    model: models.product, as: "product",
+                },
+            ],
+        }).then((result) => {
+            res.status(200).json({
+                message: "Success get tawar Product",
+                success: true,
+                data: result,
+            })
+        }).catch((err) => {
+            res.status(500).json({
+                message: "Failed get tawar Product",
+                success: false,
+            })
+        })
+    },
 
     deleteTawar: (req, res) => {
         models.tawar.destroy({
