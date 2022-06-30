@@ -5,12 +5,12 @@ module.exports = {
         let id = req.user.id;
         let data = req.body;
 
-        models.product.findOne({
+        models.wishlist.findOne({
             where: {
-                id: data.product_id
+                productId: data.product_id
             }
         }).then((product) => {
-            if (product) {
+            if (!product) {
                 models.wishlist.create({
                     userId: id,
                     productId: data.product_id,
@@ -28,7 +28,7 @@ module.exports = {
                 })
             } else {
                 res.status(404).json({
-                    message: "wishlist gagal atau product tidak ditemukan",
+                    message: "wishlist gagal atau product sudah ada di wishlist",
                     success: false,
                 });
             }
