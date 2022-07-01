@@ -30,13 +30,15 @@ const uploadImage = multer({ storage: multer.diskStorage({
 }})
 
 router.get('/products', product.getProduct)
+router.get('/product?', product.getSearchProduct)
+router.get('/product/filter?', product.getFilterCategory)
 router.get('/product/user', restrict, product.getUserProduct)
 router.get('/product/:id', product.getProductId)
 router.get('/product/sold', product.getProductSold)
 // router.get('/addProduct', function(req, res) {
 //     res.render('views/uploadImage')
 // })
-router.post('/product', restrict, product.checkUser, product.checkProduct, uploadImage.array('image', 5), product.postProduct)
+router.post('/product', restrict, product.checkUser, uploadImage.array('image', 5), product.postProduct)
 router.put('/product/:id', restrict, uploadImage.array('image', 5), product.putProduct)
 router.post('/product/publish/:id', restrict, product.publishProduct)
 router.delete('/product/:id', restrict, product.deleteProduct)

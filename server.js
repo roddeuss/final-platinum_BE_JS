@@ -38,6 +38,8 @@ const tawarRoute = require('./router/tawar')
 const transaksiRoute = require('./router/transaksi')
 const wishlistRoute = require('./router/wishlist')
 
+const port = process.env.PORT || 3000;
+
 app.use(express.json());
 
 app.use(authRoute);
@@ -49,6 +51,6 @@ app.use(wishlistRoute)
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJSON))
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('Server is running on port 3000');
 });

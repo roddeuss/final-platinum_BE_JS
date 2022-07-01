@@ -1,4 +1,5 @@
 const {user, product} = require("../models")
+const Sequelize = require("sequelize")
 
 module.exports = {
     checkUser: (req, res, next) => {
@@ -40,6 +41,34 @@ module.exports = {
             res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
         })
     },
+    getSearchProduct: (req, res) => {
+        const name = req.query.search
+        if(!name){
+            return res.json({message: "Use /product?search=value", success: false, data: {}})
+        }
+        product.findAll({where: {
+            name: {[Sequelize.Op.iLike]: `%${name}%`}
+        }}).then(filtered => {
+            res.json({message: `Product Search ${name} Ditemukan`, success: true, data: {filtered}})
+        }).catch(err => {
+            console.error(err)
+            res.json({message: `Product Search ${name} gagal Ditemukan`, success: false, data: {}})
+        })
+    },
+    getFilterCategory: (req, res) => {
+        const category = req.query.cat
+        if(!category){
+            return res.json({message: "Use /product/filter?cat=value", success: false, data: {}})
+        }
+        product.findAll({where: {
+            category: {[Sequelize.Op.iLike]: `%${category}%`}
+        }}).then(filtered => {
+            res.json({message: `Product Category ${category} Ditemukan`, success: true, data: {filtered}})
+        }).catch(err => {
+            console.error(err)
+            res.json({message: `Product Category ${category} gagal Ditemukan`, success: false, data: {}})
+        })
+    },
     getUserProduct: (req, res) => {
         product.findAll({where: {userId: req.user.id}})
         .then(products => {
@@ -58,14 +87,21 @@ module.exports = {
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
-        product.create({userId, name, category, price, description, images: files, publish})
-        .then((product) => {
-            console.log(product)
-            res.json({message: "Success tambah product", success: true, data: {product}})
-        })
-        .catch(err => {
-            console.log(err)
-            res.json({message: "Gagal tambah product", success: false, data: {}})
+        product.findAll({where : {userId : req.user.id}})
+        .then((products) => {
+            if(products < 4){
+                product.create({userId, name, category, price, description, images: files, publish})
+                .then((product) => {
+                    console.log(product)
+                    res.json({message: "Success tambah product", success: true, data: {product}})
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.json({message: "Gagal tambah product", success: false, data: {}})
+                })
+            } else {
+                res.json({message: "Productmu sudah maksimal", success: false, data: {}})
+            }
         })
     },
     putProduct: (req, res) => {
@@ -86,7 +122,8 @@ module.exports = {
     getProductId: (req, res) => {
         product.findOne({where: {id: req.params.id}, include: [{
             model: user,
-            as: "users"
+            as: "user",
+            attributes: { exclude: ["password"] }
         }]})
         .then(product => {
             if(product.length < 1) {

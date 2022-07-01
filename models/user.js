@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
           .then((data) => {
             res.json({message: "Register Berhasil", success: true, data})
           }).catch((error) => {
+            console.log(error)
             res.json({message: "Register Gagal", success: false, data: {}})
           })
         } else {
