@@ -5,12 +5,12 @@ module.exports = {
         let id = req.user.id;
         let data = req.body;
 
-        models.wishlist.findOne({
+        models.product.findOne({
             where: {
-                productId: data.product_id
+                id: data.product_id
             }
         }).then((product) => {
-            if (!product) {
+            if (product) {
                 models.wishlist.create({
                     userId: id,
                     productId: data.product_id,
