@@ -38,7 +38,7 @@ router.get('/product/sold', product.getProductSold)
 // router.get('/addProduct', function(req, res) {
 //     res.render('views/uploadImage')
 // })
-router.post('/product', restrict, product.checkUser, product.checkProduct, uploadImage.array('image', 5), product.postProduct)
+router.post('/product', restrict, product.checkUser, uploadImage.array('image', 5), product.postProduct)
 router.put('/product/:id', restrict, uploadImage.array('image', 5), product.putProduct)
 router.post('/product/publish/:id', restrict, product.publishProduct)
 router.delete('/product/:id', restrict, product.deleteProduct)

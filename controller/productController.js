@@ -87,14 +87,21 @@ module.exports = {
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
-        product.create({userId, name, category, price, description, images: files, publish})
-        .then((product) => {
-            console.log(product)
-            res.json({message: "Success tambah product", success: true, data: {product}})
-        })
-        .catch(err => {
-            console.log(err)
-            res.json({message: "Gagal tambah product", success: false, data: {}})
+        product.findAll({where : {userId : req.user.id}})
+        .then((products) => {
+            if(products < 4){
+                product.create({userId, name, category, price, description, images: files, publish})
+                .then((product) => {
+                    console.log(product)
+                    res.json({message: "Success tambah product", success: true, data: {product}})
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.json({message: "Gagal tambah product", success: false, data: {}})
+                })
+            } else {
+                res.json({message: "Productmu sudah maksimal", success: false, data: {}})
+            }
         })
     },
     putProduct: (req, res) => {
