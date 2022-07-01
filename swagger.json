@@ -431,6 +431,60 @@
         }
       }
     },
+    "/product/filter?cat={cat}": {
+      "get" : {
+        "tags" : ["Product"],
+        "summary" : "GET Filter Product",
+        "description" : "",
+        "operationId" : "getFilterProduct",
+        "consumes" : ["application/json"],
+        "produces" : ["application/json"],
+        "parameters": [
+          {
+            "name": "cat",
+            "in": "query",
+            "description": "Get Filter Product",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Get Filtered Product Berhasil"
+          },
+          "540" : {
+            "description" : "Get Filtered Product Gagal"
+          }
+        }
+      }
+    },
+    "/product?search={search}": {
+      "get" : {
+        "tags" : ["Product"],
+        "summary" : "GET Search Product",
+        "description" : "",
+        "operationId" : "getSearchProduct",
+        "consumes" : ["application/json"],
+        "produces" : ["application/json"],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Get Search Product",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Get Search Product Berhasil"
+          },
+          "400" : {
+            "description" : "Get Search Product Gagal"
+          }
+        }
+      }
+    },
     "/users/profile": {
       "get" :{
         "tags" : ["User"],
@@ -583,7 +637,7 @@
         }
       },
       "delete": {
-        "tags": ["tawar"],
+        "tags": ["Tawar"],
         "summary": "Delete Id tawar",
         "description": "",
         "operationId": "deleteTawar",
