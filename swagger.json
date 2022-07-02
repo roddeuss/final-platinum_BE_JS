@@ -681,14 +681,41 @@
         ],
         "responses": {
           "200": {
-            "description": "Get product"
+            "description": "Get Tawar product"
           },
           "400": {
-            "description": "Cannot get product"
+            "description": "Cannot get Tawar product"
           }
         }
     }
   },
+  "/tawar/user" :{
+    "get": {
+      "tags": ["Tawar"],
+      "summary": "Get Tawar User Product",
+      "description": "",
+      "operationId": "getTawarUser",
+      "consumes": ["application/json"],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "description": "Get User Id",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Get Tawar User"
+        },
+        "400": {
+          "description": "Cannot Get Tawar User Product"
+        }
+      }
+  }
+},
     "/wishlist": {
       "get": {
         "tags": ["Wishlist"],
