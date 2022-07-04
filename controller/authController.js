@@ -42,7 +42,7 @@ module.exports = {
             res.json({message: "Login Berhasil", success: true, data: {test}})
         })
         .catch(err => {
-            res.json({message: "Login Gagal", success: false, data: {}})
+            res.json({message: err.message, success: false, data: {}})
         })
     },
     login: passport.authenticate('local', {

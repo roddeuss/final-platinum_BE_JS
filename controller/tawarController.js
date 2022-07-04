@@ -48,8 +48,13 @@ module.exports = {
             },
             include: [
                 {
-                    model: models.product, as: "product",
-                },
+                    model: models.product,
+                    as: "product",
+                    include: [{
+                        model: models.user,
+                        as: "user"
+                    }]
+                }
             ],
         }).then((result) => {
             res.status(200).json({
@@ -74,8 +79,8 @@ module.exports = {
             include: [
                 {
                     model: models.product, as: "product",
-                    where
                 },
+                { model: models.user, as: "user" },
             ],
         }).then((result) => {
             res.status(200).json({
@@ -107,13 +112,14 @@ module.exports = {
             })
         }).catch((err) => {
             res.status(500).json({
-                message: "Failed get tawar Product",
+                message: err.message,
                 success: false,
             })
         })
     },
 
     getTawarSeller: (req, res) => {
+        console.log(req.user.id)
         models.tawar.findAll({
             include: [
                 {
@@ -131,7 +137,7 @@ module.exports = {
             })
         }).catch((err) => {
             res.status(500).json({
-                message: "Failed get tawar Product",
+                message: err.message,
                 success: false,
             })
         })
@@ -155,7 +161,7 @@ module.exports = {
             })
         }).catch((err) => {
             res.status(500).json({
-                message: "Failed get tawar Product",
+                message: err.message,
                 success: false,
             })
         })

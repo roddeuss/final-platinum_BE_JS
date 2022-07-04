@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       // this.belongsTo(models.user, { foreignKey: 'id', as: 'user', unique: false })
       this.belongsTo(models.product, { foreignKey: 'productId', as: 'product', unique: false })
 
-      this.hasMany(models.tawar, {as: 'tawar'})
+      // this.hasMany(models.tawar, {as: 'tawar'})
     }
   }
   transaksi.init({
