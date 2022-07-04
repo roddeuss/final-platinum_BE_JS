@@ -9,6 +9,7 @@ router.get("/tawar/product/:id", restrict, tawar.getTawarProduct)
 router.get("/tawar/:tawarId", restrict, tawar.getTawarId)
 router.get("/tawar/sell", restrict, tawar.getTawarSeller)
 router.get("/tawar/buy", restrict, tawar.getTawarBuyer)
+
 router.delete('/tawar/:id', restrict, tawar.deleteTawar)
 
 

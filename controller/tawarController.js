@@ -161,6 +161,10 @@ module.exports = {
         })
     },
 
+    get: (req, res) => {
+
+    },
+
     deleteTawar: (req, res) => {
         models.tawar.destroy({
             where: {
