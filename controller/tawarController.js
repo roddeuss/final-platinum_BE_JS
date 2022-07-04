@@ -74,6 +74,7 @@ module.exports = {
             include: [
                 {
                     model: models.product, as: "product",
+                    where
                 },
             ],
         }).then((result) => {
@@ -90,14 +91,36 @@ module.exports = {
         })
     },
 
-    getTawarUser: (req, res) => {
+    getTawarId: (req, res) => {
+        const id = req.params.tawarId
         models.tawar.findAll({
-            where: {
-                userId: req.user.id
-            },
+            where: { id: id },
+            include: [
+                { model: models.product, as: "product" },
+                { model: models.user, as: "user" },
+            ],  
+        }).then((result) => {
+            res.status(200).json({
+                message: "Success get tawar Product",
+                success: true,
+                data: result,
+            })
+        }).catch((err) => {
+            res.status(500).json({
+                message: "Failed get tawar Product",
+                success: false,
+            })
+        })
+    },
+
+    getTawarSeller: (req, res) => {
+        models.tawar.findAll({
             include: [
                 {
                     model: models.product, as: "product",
+                    where: {
+                        userId: req.user.id
+                    }
                 }
             ],  
         }).then((result) => {
@@ -114,11 +137,27 @@ module.exports = {
         })
     },
 
-    getProductSeller: (req, res) => {
-        models.tawar.findOne({
+    getTawarBuyer: (req, res) => {
+        models.tawar.findAll({
             where: {
-                
-            }
+                userId: req.user.id
+            },
+            include: [
+                {
+                    model: models.product, as: "product"
+                }
+            ],  
+        }).then((result) => {
+            res.status(200).json({
+                message: "Success get tawar Product",
+                success: true,
+                data: result,
+            })
+        }).catch((err) => {
+            res.status(500).json({
+                message: "Failed get tawar Product",
+                success: false,
+            })
         })
     },
 
