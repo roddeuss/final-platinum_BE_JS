@@ -89,7 +89,7 @@ module.exports = {
         console.log(userId, name, category, price, files, description)
         product.findAll({where : {userId : req.user.id}})
         .then((products) => {
-            if(products < 4){
+            if(products.length < 4){
                 product.create({userId, name, category, price, description, images: files, publish})
                 .then((product) => {
                     console.log(product)
