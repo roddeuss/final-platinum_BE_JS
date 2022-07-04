@@ -114,6 +114,14 @@ module.exports = {
         })
     },
 
+    getProductSeller: (req, res) => {
+        models.tawar.findOne({
+            where: {
+                
+            }
+        })
+    },
+
     deleteTawar: (req, res) => {
         models.tawar.destroy({
             where: {
