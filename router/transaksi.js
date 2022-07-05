@@ -4,8 +4,7 @@ const transaksi = require("../controller/transaksiController");
 const restrict = require('../middleware/restrict')
 
 router.post("/transaksi", restrict, transaksi.createTransaksi)
-    .get("/transaksi", restrict, transaksi.getTransaksi)
-    .get("/transaksi/:id", restrict, transaksi.getDetailTransaksi)
+    .put("/transaksi/:id", restrict, transaksi.updateTransaksi)
 
 
 module.exports = router
