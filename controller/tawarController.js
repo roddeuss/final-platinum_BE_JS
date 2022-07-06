@@ -7,7 +7,7 @@ module.exports = {
         
         models.product.findOne({
             where: {
-                userId: id
+                id: productId
             }
         }).then((product) => {
             if (product) {
@@ -52,7 +52,8 @@ module.exports = {
                     as: "product",
                     include: [{
                         model: models.user,
-                        as: "user"
+                        as: "user",
+                        attributes: { exclude: ["password"] }
                     }]
                 }
             ],
@@ -80,7 +81,7 @@ module.exports = {
                 {
                     model: models.product, as: "product",
                 },
-                { model: models.user, as: "user" },
+                { model: models.user, as: "user", attributes: { exclude: ["password"] } },
             ],
         }).then((result) => {
             res.status(200).json({
@@ -102,7 +103,7 @@ module.exports = {
             where: { id: id },
             include: [
                 { model: models.product, as: "product" },
-                { model: models.user, as: "user" },
+                { model: models.user, as: "user", attributes: { exclude: ["password"] } },
             ],  
         }).then((result) => {
             res.status(200).json({
