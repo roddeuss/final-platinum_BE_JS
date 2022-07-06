@@ -777,6 +777,151 @@
         }
         
       }
+    },
+    "/transaksi" : {
+      "post": {
+        "tags": ["Transaksi"],
+        "summary": "Create Transaksi",
+        "description": "",
+        "operationId": "createTransaksi",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "body",
+            "description": "input productId",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "integer"
+                },
+                "productId": {
+                  "type": "integer"
+                },
+                "price": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success create transaksi"
+          },
+          "500": {
+            "description": "Failed create transaksi"
+          }
+        }
+      }
+    },
+    "/transaksi/{id}": {
+      "put": {
+        "tags": ["Transaksi"],
+        "summary": "Update Transaksi",
+        "description": "",
+        "operationId": "updateTransaksi",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "productId",
+            "in": "body",
+            "description": "input productId",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transaksiId": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              }
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success update transaksi"
+          },
+          "500": {
+            "description": "Failed update transaksi"
+          }
+        }
+      }
+    },
+    "/transaksi/buyer": {
+      "get": {
+        "tags": ["Transaksi"],
+        "summary": "Get Transaksi Buyer",
+        "description": "",
+        "operationId": "getTransaksiBuyer",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Transaksi Buyer"
+          },
+          "500": {
+            "description": "Cannot get Transaksi Buyer"
+          }
+        }
+      }
+    },
+    "/transaksi/seller": {
+      "get": {
+        "tags": ["Transaksi"],
+        "summary": "Get Transaksi Seller",
+        "description": "",
+        "operationId": "getTransaksiSeller",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Transaksi Seller"
+          },
+          "500": {
+            "description": "Cannot get Transaksi Seller"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
