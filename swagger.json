@@ -689,12 +689,39 @@
         }
     }
   },
-  "/tawar/user" :{
+  "/tawar/tawar/{tawarId}" :{
     "get": {
       "tags": ["Tawar"],
-      "summary": "Get Tawar User Product",
+      "summary": "Get Tawar Id",
       "description": "",
-      "operationId": "getTawarUser",
+      "operationId": "getTawarId",
+      "consumes": ["application/json"],
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "name": "tawarId",
+          "in": "path",
+          "description": "Get Tawar Id",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Get Tawar Id"
+        },
+        "400": {
+          "description": "Cannot get Tawar Id"
+        }
+      }
+  }
+},
+  "/tawar/user/sell" :{
+    "get": {
+      "tags": ["Tawar"],
+      "summary": "Get Tawar User Seller",
+      "description": "",
+      "operationId": "getTawarSeller",
       "consumes": ["application/json"],
       "produces": ["application/json"],
       "parameters": [
@@ -708,12 +735,38 @@
       ],
       "responses": {
         "200": {
-          "description": "Get Tawar User"
+          "description": "Get Tawar Seller"
         },
         "400": {
-          "description": "Cannot Get Tawar User Product"
+          "description": "Cannot Get Tawar Seller Product"
         }
       }
+  }
+},"/tawar/user/buy" :{
+  "get": {
+    "tags": ["Tawar"],
+    "summary": "Get Tawar User Buyer",
+    "description": "",
+    "operationId": "getTawarBuyer",
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "userId",
+        "in": "path",
+        "description": "Get User Id",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Get Tawar Buyer"
+      },
+      "400": {
+        "description": "Cannot Get Tawar Buyer Product"
+      }
+    }
   }
 },
     "/wishlist": {
