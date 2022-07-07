@@ -303,7 +303,7 @@
         }
       }
     },
-    "/product/sold": {
+    "/product/user/sold": {
       "get": {
         "tags": ["Product"],
         "summary": "GET Product sold",

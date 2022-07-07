@@ -34,7 +34,7 @@ router.get('/product?', product.getSearchProduct)
 router.get('/product/filter?', product.getFilterCategory)
 router.get('/product/user', restrict, product.getUserProduct)
 router.get('/product/:id', product.getProductId)
-router.get('/product/user/sold', product.getProductSold)
+router.get('/product/user/sold', restrict, product.getProductSold)
 // router.get('/addProduct', function(req, res) {
 //     res.render('views/uploadImage')
 // })

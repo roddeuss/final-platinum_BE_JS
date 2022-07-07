@@ -70,7 +70,7 @@ module.exports = {
         })
     },
     getUserProduct: (req, res) => {
-        product.findAll({where: {userId: req.user.id}})
+        product.findAll({where: {userId: req.user.id, isSold: false}})
         .then(products => {
             res.json({message: "Product User Ditemukan", success: true, data: {products}})
         })
