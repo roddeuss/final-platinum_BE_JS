@@ -87,7 +87,7 @@ module.exports = {
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
-        product.findAll({where : {userId : req.user.id}})
+        product.findAll({where : {userId : req.user.id, isSold: true}})
         .then((products) => {
             if(products.length < 4){
                 product.create({userId, name, category, price, description, images: files, publish})
@@ -132,11 +132,12 @@ module.exports = {
             res.json({message: "Product Id Ditemukan", success: true, data: {product}})
         })
         .catch(err => {
+            console.log(err)
             res.json({message: "Product Id Gagal Ditemukan", success: false, data: {}})  
         })
     },
     getProductSold: (req, res) => {
-        product.findAll({where: {userId: req.user.id, sold: true}})
+        product.findAll({where: {userId: req.user.id, isSold: true}})
         .then(productSold => {
             if(productSold.length < 1) {
                 error
