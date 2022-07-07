@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       // this.belongsTo(models.user, { foreignKey: 'id', as: 'user', unique: false })
       this.belongsTo(models.product, { foreignKey: 'productId', as: 'product', unique: false })
+      this.belongsTo(models.user, { foreignKey: 'userId', as: 'user', unique: false })
 
       // this.hasMany(models.tawar, {as: 'tawar'})
     }

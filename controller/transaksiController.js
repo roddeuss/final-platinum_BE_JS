@@ -110,5 +110,74 @@ module.exports = {
       });
     })
   },
+  getTransaksiBuyer: (req, res) => {
+    models.transaksi.findAll({
+      where: {
+        userId: req.user.id,
+        status: "accepted"
+      },
+      include: [{
+        model: models.product,
+        as: "product",
+        attributes: { exclude: ["isSold", "publish", "createdAt", "updatedAt"] }
+      }]
+
+    }).then(result => {
+      res.status(200).json({
+        message: "Success get transaksi",
+        success: true,
+        data: result
+      });
+    }).catch(err => {
+      res.status(500).json({
+        message: err.message,
+        success: false,
+      });
+    })
+  },
+  getTransaksiSeller: (req, res) => {
+    models.transaksi.findAll({
+      where: {
+        status: "accepted"
+      },
+      include: [{
+        model: models.product,
+        as: "product",
+        attributes: { exclude: ["isSold", "publish", "createdAt", "updatedAt"] },
+        where: {
+          userId: req.user.id
+        }
+      }, {
+        model: models.user,
+        as: "user",
+        attributes: ["id", "name", "email", "city", "address"]
+      }]
+    }).then(result => {
+      res.status(200).json({
+        message: "Success get transaksi",
+        success: true,
+        data: result
+      });
+    }).catch(err => {
+      res.status(500).json({
+        message: err.message,
+        success: false,
+      });
+    })
+  },
+  getTransaksi: (req, res) => {
+    models.transaksi.findAll().then(result => {
+      res.status(200).json({
+        message: "Success get transaksi",
+        success: true,
+        data: result
+      });
+    }).catch(err => {
+      res.status(500).json({
+        message: err.message,
+        success: false,
+      });
+    })
+  }
 
 };

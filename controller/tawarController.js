@@ -132,7 +132,7 @@ module.exports = {
             ],  
         }).then((result) => {
             res.status(200).json({
-                message: "Success get tawar Product",
+                message: "Success get tawar Seller",
                 success: true,
                 data: result,
             })
@@ -156,7 +156,7 @@ module.exports = {
             ],  
         }).then((result) => {
             res.status(200).json({
-                message: "Success get tawar Product",
+                message: "Success get tawar Buyer",
                 success: true,
                 data: result,
             })
