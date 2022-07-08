@@ -859,6 +859,9 @@
                 "productId": {
                   "type": "integer"
                 },
+                "tawarId": {
+                  "type": "integer"
+                },
                 "price": {
                   "type": "integer"
                 },
