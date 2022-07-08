@@ -178,7 +178,13 @@ module.exports = {
         model: models.user,
         as: "user",
         attributes: ["id", "name", "email", "city", "address"]
-      }]
+      },
+      {
+        model: models.tawar,
+        as: "tawar",
+        attributes: ["id"],
+      }
+      ]
     }).then(result => {
       res.status(200).json({
         message: "Success get transaksi",
