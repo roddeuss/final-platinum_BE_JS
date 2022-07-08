@@ -14,13 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       // this.belongsTo(models.user, { foreignKey: 'id', as: 'user', unique: false })
       this.belongsTo(models.product, { foreignKey: 'productId', as: 'product', unique: false })
       this.belongsTo(models.user, { foreignKey: 'userId', as: 'user', unique: false })
-
+      this.belongsTo(models.tawar, { foreignKey: 'tawarId', as: 'tawar', unique: false })
       // this.hasMany(models.tawar, {as: 'tawar'})
     }
   }
   transaksi.init({
     userId: DataTypes.INTEGER,
     productId: DataTypes.INTEGER,
+    tawarId: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     status: DataTypes.STRING,
   }, {

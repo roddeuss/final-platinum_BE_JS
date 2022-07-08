@@ -27,6 +27,15 @@ module.exports = {
         onUpdate: "cascade",
         onDelete: "cascade"
       },
+      tawarId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tawars',
+          key: 'id'
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade"
+      },
       price: {
         type: Sequelize.INTEGER
       },
