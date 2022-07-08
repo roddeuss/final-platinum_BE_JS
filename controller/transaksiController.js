@@ -166,7 +166,20 @@ module.exports = {
     })
   },
   getTransaksi: (req, res) => {
-    models.transaksi.findAll().then(result => {
+    models.transaksi.findAll({
+      include: [{
+        model: models.product,
+        as: "product",
+        attributes: { exclude: ["isSold", "publish", "createdAt", "updatedAt"] },
+        where: {
+          userId: req.user.id
+        }
+      }, {
+        model: models.user,
+        as: "user",
+        attributes: ["id", "name", "email", "city", "address"]
+      }]
+    }).then(result => {
       res.status(200).json({
         message: "Success get transaksi",
         success: true,
