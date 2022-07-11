@@ -28,7 +28,12 @@ module.exports = {
         })
     },
     getProduct: (req, res) => {
-        product.findAll({where: {isSold: false, publish: true}})
+        let tab = 1;
+        if(req.query){
+            tab = req.query.tab;
+        }
+        let offset = (tab-1)*12
+        product.findAll({where: {isSold: false, publish: true}, limit: 12, offset,order: [['updateAt', 'DESC']] })
         .then(products => {
             if(products.length == 0){
                 res.json({message: "Product Kosong", success: true, data: {products}})
