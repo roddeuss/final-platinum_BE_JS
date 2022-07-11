@@ -11,19 +11,47 @@ module.exports = {
       }
     }).then(result => {
       if (result.length > 0) {
-        models.transaksi.create(data).then(result => {
-          res.status(200).json({
-            message: "Success create transaksi",
-            success: true,
-            data: result
-          });
+        // console.log(data.tawarId);
+        if (data.status == "rejected") {
+          models.tawar.update(
+            {
+              status: data.status
+            },
+            {
+              where: {
+                id: data.tawarId
+              }
+            }).
+            then(() => {
+              models.transaksi.create(data).then(result => {
+                res.status(200).json({
+                  message: "Success create transaksi",
+                  success: true,
+                  data: result
+                });
+              }
+              ).catch(err => {
+                res.status(500).json({
+                  message: err.message,
+                  success: false,
+                });
+              })
+            })
+        } else {
+          models.transaksi.create(data).then(result => {
+            res.status(200).json({
+              message: "Success create transaksi",
+              success: true,
+              data: result
+            });
+          }
+          ).catch(err => {
+            res.status(500).json({
+              message: err.message,
+              success: false,
+            });
+          })
         }
-        ).catch(err => {
-          res.status(500).json({
-            message: err.message,
-            success: false,
-          });
-        })
       } else {
         res.status(500).json({
           message: "Product not found in tawar",
