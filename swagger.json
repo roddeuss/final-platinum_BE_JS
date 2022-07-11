@@ -467,7 +467,7 @@
         }
       }
     },
-    "/product?search={search}": {
+    "/search/product?search={search}": {
       "get" : {
         "tags" : ["Product"],
         "summary" : "GET Search Product",
