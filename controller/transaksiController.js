@@ -1,4 +1,5 @@
 const models = require("../models");
+const { Op } = models.Sequelize;
 module.exports = {
   createTransaksi: (req, res) => {
     let data = req.body;
@@ -62,8 +63,29 @@ module.exports = {
               id: result.productId
             }
           })
+          // opsi bisa di update di tawar
+          models.tawar.update({
+            status: "accepted"
+          }, {
+            where: {
+              id: result.tawarId
+            }
+          })
+          // models.tawar.update({
+          //   status: "rejected"
+          // }, {
+          //   where: {
+          //     id: {
+          //       [Op.not]: [result.tawarId]
+          //     },
+          //     productId: result.productId
+          //   }
+          // })
           models.tawar.destroy({
             where: {
+              id: {
+                [Op.not]: [result.tawarId]
+              },
               productId: result.productId
             }
           })
@@ -82,11 +104,22 @@ module.exports = {
               id: data.transaksiId
             }
           })
-          models.tawar.destroy({
-            where: {
-              id: req.params.id
-            }
-          })
+          // opsialnya bisa di update di tawar
+          models.tawar.update(
+            {
+              status: "rejected"
+            },
+            {
+              where: {
+                id: req.params.id
+              }
+            })
+
+          // models.tawar.destroy({
+          //   where: {
+          //     id: req.params.id
+          //   }
+          // })
 
           res.status(200).json({
             message: "Transaksi rejected",
