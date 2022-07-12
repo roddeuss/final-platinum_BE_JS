@@ -3,7 +3,7 @@ const {Op} = require("sequelize")
 
 module.exports = {
     getNotif: (req, res) => {
-        notifProduct.findAll({where: {[Op.or]: [{userId: req.user.id}, {userId: null}]}, include: [
+        notifProduct.findAll({include: [
             {
                 model: product,
                 as: "product",
