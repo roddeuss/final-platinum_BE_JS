@@ -1,4 +1,4 @@
-const {user, product} = require("../models")
+const {user, product, notifProduct} = require("../models")
 const Sequelize = require("sequelize")
 
 module.exports = {
@@ -28,7 +28,12 @@ module.exports = {
         })
     },
     getProduct: (req, res) => {
-        product.findAll({where: {isSold: false, publish: true}})
+        let tab = 1;
+        if(req.query.tab){
+            tab = req.query.tab ;
+        }
+        let offset = (tab-1)*12
+        product.findAll({where: {isSold: false, publish: true}, limit: 12, offset ,order: [['updatedAt', 'DESC']] })
         .then(products => {
             if(products.length == 0){
                 res.json({message: "Product Kosong", success: true, data: {products}})
@@ -70,7 +75,7 @@ module.exports = {
         })
     },
     getUserProduct: (req, res) => {
-        product.findAll({where: {userId: req.user.id}})
+        product.findAll({where: {userId: req.user.id, isSold: false}})
         .then(products => {
             res.json({message: "Product User Ditemukan", success: true, data: {products}})
         })
@@ -87,13 +92,19 @@ module.exports = {
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
-        product.findAll({where : {userId : req.user.id}})
+        product.findAll({where : {userId : req.user.id, isSold: true}})
         .then((products) => {
             if(products.length < 4){
                 product.create({userId, name, category, price, description, images: files, publish})
                 .then((product) => {
-                    console.log(product)
-                    res.json({message: "Success tambah product", success: true, data: {product}})
+                    console.log({productId: product.id, userId: null, tawar: null, status: false})
+                    notifProduct.create({productId: product.id, userId: null, tawar: null, status: false})
+                    .then((product) => {
+                        res.json({message: "Success tambah product", success: true, data: {product}})
+                    })
+                    .catch((error) => {
+                        res.json({message: error.message, success: false, data: {}})
+                    })
                 })
                 .catch(err => {
                     console.log(err)
@@ -132,11 +143,12 @@ module.exports = {
             res.json({message: "Product Id Ditemukan", success: true, data: {product}})
         })
         .catch(err => {
+            console.log(err)
             res.json({message: "Product Id Gagal Ditemukan", success: false, data: {}})  
         })
     },
     getProductSold: (req, res) => {
-        product.findAll({where: {userId: req.user.id, sold: true}})
+        product.findAll({where: {userId: req.user.id, isSold: true}})
         .then(productSold => {
             if(productSold.length < 1) {
                 error

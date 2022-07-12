@@ -17,10 +17,19 @@ module.exports = {
                     productId: req.body.productId,
                     price: price,
                 }).then((tawar) => {
-                    res.status(200).json({
-                        message: "Success create tawar",
-                        success: true,
-                        data: tawar
+                    models.notifProduct.create({productId, userId, tawar:price, status:false})
+                    .then((notif) =>{
+                        res.status(200).json({
+                            message: "Success create tawar",
+                            success: true,
+                            data: tawar
+                        })
+                    }).catch((err) => {
+                        console.log(err)
+                        res.status(500).json({
+                            message: err.message,
+                            success: false,
+                        })
                     })
                 }).catch((err) => {
                     res.status(500).json({

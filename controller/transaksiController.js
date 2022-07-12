@@ -132,7 +132,7 @@ module.exports = {
               id: data.transaksiId
             }
           })
-          // opsialnya bisa di update di tawar
+          // opsialnya bisa di update di tawars
           models.tawar.update(
             {
               status: "rejected"

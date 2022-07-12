@@ -37,6 +37,7 @@ const productRoute = require('./router/product');
 const tawarRoute = require('./router/tawar')
 const transaksiRoute = require('./router/transaksi')
 const wishlistRoute = require('./router/wishlist')
+const notifRoute = require('./router/notif')
 
 const port = process.env.PORT || 3000;
 
@@ -48,6 +49,7 @@ app.use(productRoute);
 app.use(tawarRoute);
 app.use(transaksiRoute);
 app.use(wishlistRoute)
+app.use(notifRoute)
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerJSON))
 

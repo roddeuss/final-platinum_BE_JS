@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       this.hasMany(models.product, {as: 'product'})
+      this.hasMany(models.notifProduct, {as: 'notifProduct'})
     }
 
     static #encrypt = (password) => {

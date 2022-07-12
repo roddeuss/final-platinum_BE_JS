@@ -122,7 +122,7 @@
         }
       }
     },
-    "/products":{
+    "/products?tab={tab}":{
       "get": {
         "tags": ["Product"],
         "summary": "Get All publish product",
@@ -130,6 +130,15 @@
         "operationId": "getProducts",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "tab",
+            "in": "query",
+            "description": "Get tab Product",
+            "required": true,
+            "type": "integer"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Get product"
@@ -303,7 +312,7 @@
         }
       }
     },
-    "/product/sold": {
+    "/product/user/sold": {
       "get": {
         "tags": ["Product"],
         "summary": "GET Product sold",
@@ -458,7 +467,7 @@
         }
       }
     },
-    "/product?search={search}": {
+    "/search/product?search={search}": {
       "get" : {
         "tags" : ["Product"],
         "summary" : "GET Search Product",
