@@ -987,6 +987,52 @@
           }
         }
       }
+    },
+    "/notif": {
+      "get": {
+        "tags": ["Notif"],
+        "summary": "het Notifikasi",
+        "description": "",
+        "operationId": "getNotif",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Notif"
+          },
+          "500": {
+            "description": "Cannot get Notif"
+          }
+        }
+      }
+    },
+    "/notif/{tawarId}": {
+      "delete": {
+        "tags": ["Transaksi"],
+        "summary": "Delete Notif",
+        "description": "",
+        "operationId": "deleteNotif",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Delete Notif"
+          },
+          "500": {
+            "description": "Cannot Delete Notif"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
