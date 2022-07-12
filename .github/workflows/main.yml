@@ -17,8 +17,8 @@ jobs:
         run: npm install
       # - name: DB undo
       #   run: npm run undo-migrate
-      - name: Migrate DB
-        run: npm run migrate
+      # - name: Migrate DB
+      #   run: npm run migrate
 
   deploy:
     runs-on: ubuntu-latest
