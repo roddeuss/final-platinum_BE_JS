@@ -8,7 +8,7 @@
     "start": "nodemon server",
     "migrate": "sequelize db:migrate --env production",
     "seed-all": "sequelize db:seed:all",
-    "undo-migrate": "sequelize db:migrate:undo --env production"
+    "undo-migrate": "sequelize db:migrate:undo:all --env production"
   },
   "keywords": [],
   "author": "",

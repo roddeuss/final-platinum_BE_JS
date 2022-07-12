@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.user,{foreignKey: 'userId', as: 'user', unique:false})
       // this.hasMany(models.productImage, {as: 'productImage'})
       this.hasMany(models.tawar, {as: 'tawar'})
+      this.hasMany(models.notifProduct, {as: 'notifProduct'})
     }
   }
   product.init({

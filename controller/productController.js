@@ -1,4 +1,4 @@
-const {user, product} = require("../models")
+const {user, product, notifProduct} = require("../models")
 const Sequelize = require("sequelize")
 
 module.exports = {
@@ -97,8 +97,14 @@ module.exports = {
             if(products.length < 4){
                 product.create({userId, name, category, price, description, images: files, publish})
                 .then((product) => {
-                    console.log(product)
-                    res.json({message: "Success tambah product", success: true, data: {product}})
+                    console.log({productId: product.id, userId: null, tawar: null, status: false})
+                    notifProduct.create({productId: product.id, userId: null, tawar: null, status: false})
+                    .then((product) => {
+                        res.json({message: "Success tambah product", success: true, data: {product}})
+                    })
+                    .catch((error) => {
+                        res.json({message: error.message, success: false, data: {}})
+                    })
                 })
                 .catch(err => {
                     console.log(err)
