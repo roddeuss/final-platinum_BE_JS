@@ -62,8 +62,8 @@ module.exports = {
 
         let offset = (tab-1)*12
         product.findAll({where: {
-            name: [{[Sequelize.Op.iLike]: `%${search}%`}],
-            category: [{[Sequelize.Op.iLike]: `%${cat}%`}],
+            name: {[Sequelize.Op.iLike]: `%${search}%`},
+            category: {[Sequelize.Op.iLike]: `%${cat}%`},
             isSold: false, publish: true}, limit: 12, offset ,order: [['updatedAt', 'DESC']] })
         .then(products => {
             if(products.length == 0){
@@ -74,7 +74,7 @@ module.exports = {
         })
         .catch(err => {
             console.log(err)
-            res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
+            res.json({message: "Product Gagal Ditemukan", success: false, data: err.message})
         })
     },
     getSearchProduct: (req, res) => {
