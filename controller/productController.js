@@ -46,6 +46,37 @@ module.exports = {
             res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
         })
     },
+    getAllProduct: (req, res) => {
+        let tab = 1;
+        let cat = "";
+        let search = "";
+        if(req.query.tab){
+            tab = req.query.tab ;
+        }
+        if(req.query.cat){
+            cat = req.query.cat ;
+        }
+        if(req.query.search){
+            search = req.query.search ;
+        }
+
+        let offset = (tab-1)*12
+        product.findAll({where: {
+            name: [{[Sequelize.Op.iLike]: `%${search}%`}],
+            category: [{[Sequelize.Op.iLike]: `%${cat}%`}],
+            isSold: false, publish: true}, limit: 12, offset ,order: [['updatedAt', 'DESC']] })
+        .then(products => {
+            if(products.length == 0){
+                res.json({message: "Product Kosong", success: true, data: {products}})
+            } else {
+                res.json({message: "Product Ditemukan", success: true, data: {products}})
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
+        })
+    },
     getSearchProduct: (req, res) => {
         const name = req.query.search
         if(!name){

@@ -122,6 +122,47 @@
         }
       }
     },
+    "/AllProducts?tab={tab}&cat={cat}&search={search}":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get All publish product",
+        "description": "",
+        "operationId": "getAllProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "tab",
+            "in": "query",
+            "description": "Get tab Product",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "cat",
+            "in": "query",
+            "description": "Get cat Product",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Get search Product",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
+          }
+        }
+      }
+    },
     "/products?tab={tab}":{
       "get": {
         "tags": ["Product"],
