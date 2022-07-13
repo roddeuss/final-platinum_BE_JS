@@ -17,7 +17,7 @@ module.exports = {
                     productId: req.body.productId,
                     price: price,
                 }).then((tawar) => {
-                    models.notifProduct.create({productId, userId, tawar:price, status:false})
+                    models.notifProduct.create({productId, userId, tawarId:tawar.id, status:false})
                     .then((notif) =>{
                         res.status(200).json({
                             message: "Success create tawar",
