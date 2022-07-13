@@ -1013,7 +1013,7 @@
     },
     "/notif/{tawarId}": {
       "delete": {
-        "tags": ["Transaksi"],
+        "tags": ["Notif"],
         "summary": "Delete Notif",
         "description": "",
         "operationId": "deleteNotif",

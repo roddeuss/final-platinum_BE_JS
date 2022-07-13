@@ -97,8 +97,8 @@ module.exports = {
             if(products.length < 4){
                 product.create({userId, name, category, price, description, images: files, publish})
                 .then((product) => {
-                    console.log({productId: product.id, userId: null, tawar: null, status: false})
-                    notifProduct.create({productId: product.id, userId: null, tawar: null, status: false})
+                    console.log({productId: product.id, userId: null, tawarId: null, status: false})
+                    notifProduct.create({productId: product.id, userId: null, tawarId: null, status: false})
                     .then((product) => {
                         res.json({message: "Success tambah product", success: true, data: {product}})
                     })
@@ -116,11 +116,11 @@ module.exports = {
         })
     },
     putProduct: (req, res) => {
-        const {name, category, price, description} = req.body
+        const {name, category, price, description, publish} = req.body
         const userId = req.user.id
         const files = req.fileUploads
         console.log(userId, name, category, price, description)
-        product.update({userId, name, category, price, description, images: files, publish: true},
+        product.update({userId, name, category, price, description, images: files, publish},
             {where: { id: req.params.id }})
         .then((product) => {
             console.log(product)

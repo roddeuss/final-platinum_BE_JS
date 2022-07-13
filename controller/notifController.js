@@ -1,4 +1,4 @@
-const {notifProduct, product} = require("../models")
+const {notifProduct, product, tawar} = require("../models")
 const {Op} = require("sequelize")
 
 module.exports = {
@@ -17,8 +17,13 @@ module.exports = {
                 {
                     model: product,
                     as: "product",
+                },
+                {
+                    model: tawar,
+                    as: "tawar",
                 }
-            ]}).then((notif) =>{
+            ]
+            }).then((notif) =>{
                 res.json({message: "Get All notif", success: true, data: notif})
             }).catch((err) =>{
                 res.json({message: "Cannot Get All notif", success: false, data: err.message})
@@ -27,8 +32,8 @@ module.exports = {
         console.log(listProduct)
     },
     deleteNotif: (req, res) => {
-        const {tawarId} = req.params
-        notifProduct.destroy({where: {id: tawarId}})
+        const {notifId} = req.params
+        notifProduct.destroy({where: {id: notifId}})
         .then((notif) =>{
             res.json({message: "Success Delete notif", success: true, data: notif})
         }).catch((err) =>{

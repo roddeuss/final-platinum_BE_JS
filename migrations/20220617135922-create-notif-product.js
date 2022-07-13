@@ -26,8 +26,14 @@ module.exports = {
         onUpdate: "cascade",
         onDelete: "cascade"
       },
-      tawar: {
-        type: Sequelize.STRING
+      tawarId: {
+        type: Sequelize.STRING,
+        references: {
+          model: 'tawars',
+          key: 'id'
+        },
+        onUpdate: "cascade",
+        onDelete: "cascade"
       },
       status: {
         type: Sequelize.BOOLEAN
