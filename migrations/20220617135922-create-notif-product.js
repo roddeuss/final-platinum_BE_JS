@@ -27,7 +27,7 @@ module.exports = {
         onDelete: "cascade"
       },
       tawarId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: {
           model: 'tawars',
           key: 'id'
