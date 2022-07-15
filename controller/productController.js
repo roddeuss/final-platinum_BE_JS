@@ -64,17 +64,24 @@ module.exports = {
         product.findAll({where: {
             name: {[Sequelize.Op.iLike]: `%${search}%`},
             category: {[Sequelize.Op.iLike]: `%${cat}%`},
-            isSold: false, publish: true}, limit: 12, offset ,order: [['updatedAt', 'DESC']] })
+            isSold: false, publish: true}, order: [['updatedAt', 'DESC']] })
         .then(products => {
-            if(products.length == 0){
-                res.json({message: "Product Kosong", success: true, data: {products}})
-            } else {
-                res.json({message: "Product Ditemukan", success: true, data: {products}})
-            }
-        })
-        .catch(err => {
-            console.log(err)
-            res.json({message: "Product Gagal Ditemukan", success: false, data: err.message})
+            let page = Math.ceil(products.length/12) 
+            product.findAll({where: {
+                name: {[Sequelize.Op.iLike]: `%${search}%`},
+                category: {[Sequelize.Op.iLike]: `%${cat}%`},
+                isSold: false, publish: true}, limit: 12, offset ,order: [['updatedAt', 'DESC']] })
+            .then(product => {
+                if(products.length == 0){
+                    res.json({message: "Product Kosong", success: true, data: {product}, tab: page})
+                } else {
+                    res.json({message: "Product Ditemukan", success: true, data: {product}})
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                res.json({message: "Product Gagal Ditemukan", success: false, data: err.message})
+            })
         })
     },
     getSearchProduct: (req, res) => {
