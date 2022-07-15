@@ -130,7 +130,7 @@ module.exports = {
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
-        product.findAll({where : {userId : req.user.id, isSold: true}})
+        product.findAll({where : {userId : req.user.id}})
         .then((products) => {
             if(products.length < 4){
                 product.create({userId, name, category, price, description, images: files, publish})
