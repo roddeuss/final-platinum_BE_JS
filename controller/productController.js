@@ -73,9 +73,9 @@ module.exports = {
                 isSold: false, publish: true}, limit: 12, offset ,order: [['updatedAt', 'DESC']] })
             .then(product => {
                 if(products.length == 0){
-                    res.json({message: "Product Kosong", success: true, data: {product}, tab: page})
+                    res.json({message: "Product Kosong", success: true, data: {product}})
                 } else {
-                    res.json({message: "Product Ditemukan", success: true, data: {product}})
+                    res.json({message: "Product Ditemukan", success: true, data: {product}, tab: page})
                 }
             })
             .catch(err => {
