@@ -1,4 +1,4 @@
-const {user, product, notifProduct} = require("../models")
+const {user, product, notifProduct, wishlist } = require("../models")
 const Sequelize = require("sequelize")
 
 module.exports = {
@@ -197,6 +197,7 @@ module.exports = {
     deleteProduct: (req, res) => {
         product.destroy({where: {id: req.params.id}})
         .then((product) => {
+            wishlist.destroy({where: {productId: req.params.id}})
             res.json({message: "Product Dihapus", success: true, data: {product}})
         })
         .catch(err => {
