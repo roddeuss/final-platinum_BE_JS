@@ -63,6 +63,12 @@ module.exports = {
         user.register(res, name, email, password)
     },
     getWhoami: (req, res) => {
+        // user.findAll({where: {id: req.user.id}, exclude: ['password']})
+        // .then(user => {
+        //     res.json(user)
+        // }).catch(err => {
+        //     req.json({message: err.message})
+        // })
         res.json(req.user)
     }
 }
