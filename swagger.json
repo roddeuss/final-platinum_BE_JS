@@ -30,19 +30,6 @@
   "schemes": ["https"],
   "paths": {
     "/login": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "Get /login",
-        "description": "",
-        "operationId": "getLogin",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Get /login"
-          }
-        }
-      },
       "post": {
         "tags": ["Auth"],
         "summary": "Login user",
@@ -71,33 +58,7 @@
         }
       }
     },
-    "/logout":{
-      "post": {
-        "tags": ["Auth"],
-        "summary": "mehtod logout user",
-        "description": "Logout user",
-        "operationId": "postLogout",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Logut berhasil"
-          }
-        }
-      }
-    },
     "/register":{
-      "get": {
-        "tags": ["Auth"],
-        "summary": "GET /register",
-        "description": "Get register page",
-        "operationId": "getRegister",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "GET Register success"
-          }
-        }
-      },
       "post": {
         "tags": ["Auth"],
         "summary": "POST /register",
