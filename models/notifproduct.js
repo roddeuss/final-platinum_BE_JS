@@ -13,12 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.product, {foreignKey: 'productId', as: 'product', unique:false})
       this.belongsTo(models.user, {foreignKey: 'userId', as: 'user', unique:false})
+      this.belongsTo(models.tawar, {foreignKey: 'tawarId', as: 'tawar', unique:false})
     }
   }
   notifProduct.init({
     productId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    tawar: DataTypes.STRING,
+    tawarId: DataTypes.INTEGER,
     status: DataTypes.BOOLEAN
   }, {
     sequelize,

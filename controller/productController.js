@@ -46,6 +46,44 @@ module.exports = {
             res.json({message: "Product Gagal Ditemukan", success: false, data: {}})
         })
     },
+    getAllProduct: (req, res) => {
+        let tab = 1;
+        let cat = "";
+        let search = "";
+        if(req.query.tab){
+            tab = req.query.tab ;
+        }
+        if(req.query.cat){
+            cat = req.query.cat ;
+        }
+        if(req.query.search){
+            search = req.query.search ;
+        }
+
+        let offset = (tab-1)*12
+        product.findAll({where: {
+            name: {[Sequelize.Op.iLike]: `%${search}%`},
+            category: {[Sequelize.Op.iLike]: `%${cat}%`},
+            isSold: false, publish: true}, order: [['updatedAt', 'DESC']] })
+        .then(products => {
+            let page = Math.ceil(products.length/12) 
+            product.findAll({where: {
+                name: {[Sequelize.Op.iLike]: `%${search}%`},
+                category: {[Sequelize.Op.iLike]: `%${cat}%`},
+                isSold: false, publish: true}, limit: 12, offset ,order: [['updatedAt', 'DESC']] })
+            .then(product => {
+                if(products.length == 0){
+                    res.json({message: "Product Kosong", success: true, data: {product}})
+                } else {
+                    res.json({message: "Product Ditemukan", success: true, data: {product}, tab: page})
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                res.json({message: "Product Gagal Ditemukan", success: false, data: err.message})
+            })
+        })
+    },
     getSearchProduct: (req, res) => {
         const name = req.query.search
         if(!name){
@@ -92,13 +130,13 @@ module.exports = {
         const files = req.fileUploads
         console.log(req.files)
         console.log(userId, name, category, price, files, description)
-        product.findAll({where : {userId : req.user.id, isSold: true}})
+        product.findAll({where : {userId : req.user.id}})
         .then((products) => {
             if(products.length < 4){
                 product.create({userId, name, category, price, description, images: files, publish})
                 .then((product) => {
-                    console.log({productId: product.id, userId: null, tawar: null, status: false})
-                    notifProduct.create({productId: product.id, userId: null, tawar: null, status: false})
+                    console.log({productId: product.id, userId: null, tawarId: null, status: false})
+                    notifProduct.create({productId: product.id, userId: null, tawarId: null, status: false})
                     .then((product) => {
                         res.json({message: "Success tambah product", success: true, data: {product}})
                     })
@@ -116,11 +154,11 @@ module.exports = {
         })
     },
     putProduct: (req, res) => {
-        const {name, category, price, description} = req.body
+        const {name, category, price, description, publish} = req.body
         const userId = req.user.id
         const files = req.fileUploads
         console.log(userId, name, category, price, description)
-        product.update({userId, name, category, price, description, images: files, publish: true},
+        product.update({userId, name, category, price, description, images: files, publish},
             {where: { id: req.params.id }})
         .then((product) => {
             console.log(product)

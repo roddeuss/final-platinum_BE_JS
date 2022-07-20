@@ -30,19 +30,6 @@
   "schemes": ["https"],
   "paths": {
     "/login": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "Get /login",
-        "description": "",
-        "operationId": "getLogin",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Get /login"
-          }
-        }
-      },
       "post": {
         "tags": ["Auth"],
         "summary": "Login user",
@@ -71,33 +58,7 @@
         }
       }
     },
-    "/logout":{
-      "post": {
-        "tags": ["Auth"],
-        "summary": "mehtod logout user",
-        "description": "Logout user",
-        "operationId": "postLogout",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Logut berhasil"
-          }
-        }
-      }
-    },
     "/register":{
-      "get": {
-        "tags": ["Auth"],
-        "summary": "GET /register",
-        "description": "Get register page",
-        "operationId": "getRegister",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "GET Register success"
-          }
-        }
-      },
       "post": {
         "tags": ["Auth"],
         "summary": "POST /register",
@@ -118,6 +79,47 @@
         "responses": {
           "200": {
             "description": "GET Register success"
+          }
+        }
+      }
+    },
+    "/AllProducts?tab={tab}&cat={cat}&search={search}":{
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get All publish product",
+        "description": "",
+        "operationId": "getAllProducts",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "tab",
+            "in": "query",
+            "description": "Get tab Product",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "cat",
+            "in": "query",
+            "description": "Get cat Product",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Get search Product",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get product"
+          },
+          "400": {
+            "description": "Cannot get product"
           }
         }
       }
@@ -984,6 +986,52 @@
           },
           "500": {
             "description": "Cannot get Transaksi Seller"
+          }
+        }
+      }
+    },
+    "/notif": {
+      "get": {
+        "tags": ["Notif"],
+        "summary": "het Notifikasi",
+        "description": "",
+        "operationId": "getNotif",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Notif"
+          },
+          "500": {
+            "description": "Cannot get Notif"
+          }
+        }
+      }
+    },
+    "/notif/{tawarId}": {
+      "delete": {
+        "tags": ["Notif"],
+        "summary": "Delete Notif",
+        "description": "",
+        "operationId": "deleteNotif",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Delete Notif"
+          },
+          "500": {
+            "description": "Cannot Delete Notif"
           }
         }
       }

@@ -14,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     
     generateToken = (id, email) => {
       const payload = {
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
         id, email
       }
       console.log(payload);
       const rahasia = "Ini sangat rahasia"
-      const token = jwt.sign(payload, rahasia, {expiresIn: '1d'})
+      const token = jwt.sign(payload, rahasia)
       return token;
     }
 

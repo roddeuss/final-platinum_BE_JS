@@ -27,18 +27,7 @@ module.exports = {
         const {email, password} = req.body;
         user.authenticate(email, password)
         .then(status => {
-            console.log(req.session)
             let test = formatUser(status)
-            console.log(test)
-            // app.use(session({
-            //     secret: 'Ini rahasia banget',
-            //     resave: false,
-            //     saveUninitialized: false,
-            //     cookie: {maxAge: 1000 * 60 * 60 * 24}
-            // }))
-            session=req.session;
-            session.userId=status.dataValues.id;
-            console.log(req.session)
             res.json({message: "Login Berhasil", success: true, data: {test}})
         })
         .catch(err => {
