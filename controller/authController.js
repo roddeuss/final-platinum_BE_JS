@@ -18,10 +18,6 @@ function formatUser(user) {
 }
 
 module.exports = {
-    getLogin: (req, res) =>{
-        res.render('views/login')
-        // res.json({message: "Masukkan Email dan Password", success: true, data: {}})
-    },
     postLogin: (req, res) =>{
         console.log(req.body)
         const {email, password} = req.body;
@@ -39,21 +35,6 @@ module.exports = {
         failureRedirect: '/login',
         failureFlash: true
     }),
-    logout: (req,res) => {
-        // req.session.cookie.maxAge = 0
-        // req.session.cookie.expires = Date.now()
-        // req.session.userId = null;
-        // console.log(req.session)
-        // req.session.destroy();
-        console.log(req.session)
-        res.clearCookie('connect.sid');
-        // req.session.destroy();
-        console.log(req.session)
-        res.json({message: 'Logout Berhasil', success: true, data: {}});
-    },
-    getRegister: (req, res) => {
-        res.json({message: "Masukkan Nama, Email, dan Password", success: true, data: {}})
-    },
     postRegister: (req, res) => {
         const {name, email, password} = req.body;
         console.log(req.body)

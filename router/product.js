@@ -29,10 +29,7 @@ const uploadImage = multer({ storage: multer.diskStorage({
     }
 }})
 
-router.get('/products?', product.getProduct)
 router.get('/AllProducts?', product.getAllProduct)
-router.get('/search/product?', product.getSearchProduct)
-router.get('/product/filter?', product.getFilterCategory)
 router.get('/product/user', restrict, product.getUserProduct)
 router.get('/product/:id', product.getProductId)
 router.get('/product/user/sold', restrict, product.getProductSold)

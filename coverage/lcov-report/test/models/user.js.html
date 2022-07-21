@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">73.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/80</span>
+                <span class='fraction'>59/80</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">77.77% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>7/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">73.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/80</span>
+                <span class='fraction'>59/80</span>
             </div>
         
             
@@ -153,19 +153,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -177,8 +168,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -231,32 +231,32 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) =&gt; {
   class user extends Model {
-<span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >    checkPassword = (password, db_password) =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >      return bcrypt.compareSync(password, db_password)</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    </span>
-<span class="cstat-no" title="statement not covered" >    generateToken = (id, email) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      const payload = {</span>
-<span class="cstat-no" title="statement not covered" >        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),</span>
-<span class="cstat-no" title="statement not covered" >        id, email</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
-<span class="cstat-no" title="statement not covered" >      console.log(payload);</span>
-<span class="cstat-no" title="statement not covered" >      const rahasia = "Ini sangat rahasia"</span>
-<span class="cstat-no" title="statement not covered" >      const token = jwt.sign(payload, rahasia)</span>
-<span class="cstat-no" title="statement not covered" >      return token;</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    checkPassword = (password, db_password) =&gt; {
+      return bcrypt.compareSync(password, db_password)
+    }
+    
+    generateToken = (id, email) =&gt; {
+      const payload = {
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+        id, email
+      }
+      console.log(payload);
+      const rahasia = "Ini sangat rahasia"
+      const token = jwt.sign(payload, rahasia)
+      return token;
+    }
 &nbsp;
     static authenticate = async ( email, password ) =&gt; {
       try {
         const userLog = await this.findOne({ where: {email}})
         if(!userLog) return Promise.reject("Email not found!")
         const isPasswordValid = await userLog.checkPassword(password, userLog.password)
-        if(!isPasswordValid) return Promise.reject("Wrong Password!")
+        if(!isPasswordValid) <span class="branch-0 cbranch-no" title="branch not covered" >return P</span>romise.reject("Wrong Password!")
 &nbsp;
         return Promise.resolve(userLog)
-      } catch (error) {
-        return Promise.reject(error)        
-      }
+      } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >        return Promise.reject(error)        </span>
+<span class="cstat-no" title="statement not covered" >      }</span>
     }
 &nbsp;
     static associate(models) {
@@ -307,7 +307,7 @@ module.exports = (sequelize, DataTypes) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-07-20T15:43:29.259Z
+                at 2022-07-21T14:09:55.556Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
