@@ -84,34 +84,34 @@ module.exports = {
             })
         })
     },
-    getSearchProduct: (req, res) => {
-        const name = req.query.search
-        if(!name){
-            return res.json({message: "Use /product?search=value", success: false, data: {}})
-        }
-        product.findAll({where: {
-            name: {[Sequelize.Op.iLike]: `%${name}%`}
-        }}).then(filtered => {
-            res.json({message: `Product Search ${name} Ditemukan`, success: true, data: {filtered}})
-        }).catch(err => {
-            console.error(err)
-            res.json({message: `Product Search ${name} gagal Ditemukan`, success: false, data: {}})
-        })
-    },
-    getFilterCategory: (req, res) => {
-        const category = req.query.cat
-        if(!category){
-            return res.json({message: "Use /product/filter?cat=value", success: false, data: {}})
-        }
-        product.findAll({where: {
-            category: {[Sequelize.Op.iLike]: `%${category}%`}
-        }}).then(filtered => {
-            res.json({message: `Product Category ${category} Ditemukan`, success: true, data: {filtered}})
-        }).catch(err => {
-            console.error(err)
-            res.json({message: `Product Category ${category} gagal Ditemukan`, success: false, data: {}})
-        })
-    },
+    // getSearchProduct: (req, res) => {
+    //     const name = req.query.search
+    //     if(!name){
+    //         return res.json({message: "Use /product?search=value", success: false, data: {}})
+    //     }
+    //     product.findAll({where: {
+    //         name: {[Sequelize.Op.iLike]: `%${name}%`}
+    //     }}).then(filtered => {
+    //         res.json({message: `Product Search ${name} Ditemukan`, success: true, data: {filtered}})
+    //     }).catch(err => {
+    //         console.error(err)
+    //         res.json({message: `Product Search ${name} gagal Ditemukan`, success: false, data: {}})
+    //     })
+    // },
+    // getFilterCategory: (req, res) => {
+    //     const category = req.query.cat
+    //     if(!category){
+    //         return res.json({message: "Use /product/filter?cat=value", success: false, data: {}})
+    //     }
+    //     product.findAll({where: {
+    //         category: {[Sequelize.Op.iLike]: `%${category}%`}
+    //     }}).then(filtered => {
+    //         res.json({message: `Product Category ${category} Ditemukan`, success: true, data: {filtered}})
+    //     }).catch(err => {
+    //         console.error(err)
+    //         res.json({message: `Product Category ${category} gagal Ditemukan`, success: false, data: {}})
+    //     })
+    // },
     getUserProduct: (req, res) => {
         product.findAll({where: {userId: req.user.id, isSold: false}})
         .then(products => {
@@ -207,24 +207,6 @@ module.exports = {
                 {where : {id: products.id}}
             ).then(update => {
                 res.json({message: `Product Berhasil Dipublish`, success: true, data: {update}})
-            }).catch(err => {
-                res.json({message: "Product Gagal Dirubah", success: false, data: {}})
-            })
-        }).catch(err => {
-            res.json({message: "Product Tidak Dapat Dirubah", success: false, data: {}})
-        })
-    },
-    keepProduct: (req, res) => {
-        const productId = req.params.id;
-        const userId = req.user.id
-        product.findOne({where : {id: productId, userId}})
-        .then(products => {
-            console.log(products)
-            product.update(
-                {publish: false},
-                {where : {id: products.id}}
-            ).then(update => {
-                res.json({message: `Product Berhasil Dikeep`, success: true, data: {update}})
             }).catch(err => {
                 res.json({message: "Product Gagal Dirubah", success: false, data: {}})
             })
