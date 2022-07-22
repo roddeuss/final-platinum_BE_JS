@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../server')
 const mock = jest.fn();
 const path = require('path');
-const mockRequest = (body = {}) => ({body});
+const mockRequest = (body = {}) => ({ body });
 const mockResponse = () => {
     const res = {}
     res.json = mock.mockReturnValue(res);
@@ -17,13 +17,13 @@ let tokenJWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTg0OTYxNjYsIml
 // Auth
 describe('POST /login', () => {
     test('post login', async () => {
-        const response = await request(app).post('/login').send({email: 'test@test.test', password: 'testtest'});;
+        const response = await request(app).post('/login').send({ email: 'test@test.test', password: 'testtest' });;
         expect(response.status).toBe(200);
     })
 });
 describe('fail POST /login', () => {
     test('fail post login', async () => {
-        const response = await request(app).post('/login').send({email: 'test@test.tes', password: 'testtest'});;
+        const response = await request(app).post('/login').send({ email: 'test@test.tes', password: 'testtest' });;
         expect(response.status).toBe(200);
     })
 });
@@ -119,3 +119,70 @@ describe('DELETE /notif/:notifId', () => {
         expect(response.status).toBe(200);
     })
 });
+
+//profile
+describe('GET /profile', () => {
+    test('get profile', async () => {
+        const response = await request(app).get('/users/profile').set('Authorization', tokenJWT)
+        expect(response.status).toBe(200);
+    })
+});
+describe('PUT /profile', () => {
+    test('put profile', async () => {
+        const response = await request(app).put('/users/profile').set('Authorization', tokenJWT)
+            .set('consumes', 'multipart/form-data')
+            .field("name", "test put name")
+            .field("number_mobile", "test put number_mobile")
+            .field("address", "test put address")
+            .field("city", "test put city")
+            .attach("image", image);
+        expect(response.status).toBe(200);
+    })
+})
+
+//wishlist
+describe('GET /wishlist', () => {
+    test('get wishlist', async () => {
+        const response = await request(app).get('/wishlist').set('Authorization', tokenJWT)
+        expect(response.status).toBe(200);
+    })
+});
+describe('POST /wishlist', () => {
+    test('post wishlist', async () => {
+        const response = await request(app).post('/wishlist').set('Authorization', tokenJWT).send({ product_id: 1 })
+        expect(response.status).toBe(200);
+    })
+});
+describe('DELETE /wishlist/:id', () => {
+    test('delete wishlist', async () => {
+        const response = await request(app).delete('/wishlist/1').set('Authorization', tokenJWT)
+        expect(response.status).toBe(200);
+    })
+});
+
+//transaksi
+describe('GET /transaksi/buyer', () => {
+    test('get transaksi', async () => {
+        const response = await request(app).get('/transaksi/buyer').set('Authorization', tokenJWT)
+        expect(response.status).toBe(200);
+    })
+});
+describe('GET /transaksi/seller', () => {
+    test('get transaksi', async () => {
+        const response = await request(app).get('/transaksi/seller').set('Authorization', tokenJWT)
+        expect(response.status).toBe(200);
+    })
+});
+describe('POST /transaksi', () => {
+    test('post transaksi', async () => {
+        const response = await request(app).post('/transaksi').set('Authorization', tokenJWT).send({ userId: 2, productId: 1, tawarId: 1, price: 20000, status: "pending" })
+        expect(response.status).toBe(200);
+    })
+});
+describe('PUT /transaksi/:id', () => {
+    test('put transaksi', async () => {
+        const response = await request(app).put('/transaksi/1').set('Authorization', tokenJWT).send({ transaksiId: 1, status: "rejected" })
+        expect(response.status).toBe(200);
+    })
+});
+
