@@ -127,18 +127,18 @@ describe('GET /profile', () => {
         expect(response.status).toBe(200);
     })
 });
-describe('PUT /profile', () => {
-    test('put profile', async () => {
-        const response = await request(app).put('/users/profile').set('Authorization', tokenJWT)
-            .set('consumes', 'multipart/form-data')
-            .field("name", "test put name")
-            .field("number_mobile", "test put number_mobile")
-            .field("address", "test put address")
-            .field("city", "test put city")
-            .attach("image", image);
-        expect(response.status).toBe(200);
-    })
-})
+// describe('PUT /profile', () => {
+//     test('put profile', async () => {
+//         const response = await request(app).put('/users/profile').set('Authorization', tokenJWT)
+//             .set('consumes', 'multipart/form-data')
+//             .field("name", "test put name")
+//             .field("number_mobile", "test put number_mobile")
+//             .field("address", "test put address")
+//             .field("city", "test put city")
+//             .attach("image", image);
+//         expect(response.status).toBe(200);
+//     })
+// })
 
 //wishlist
 describe('GET /wishlist', () => {
@@ -147,18 +147,18 @@ describe('GET /wishlist', () => {
         expect(response.status).toBe(200);
     })
 });
-describe('POST /wishlist', () => {
-    test('post wishlist', async () => {
-        const response = await request(app).post('/wishlist').set('Authorization', tokenJWT).send({ product_id: 1 })
-        expect(response.status).toBe(200);
-    })
-});
-describe('DELETE /wishlist/:id', () => {
-    test('delete wishlist', async () => {
-        const response = await request(app).delete('/wishlist/1').set('Authorization', tokenJWT)
-        expect(response.status).toBe(200);
-    })
-});
+// describe('POST /wishlist', () => {
+//     test('post wishlist', async () => {
+//         const response = await request(app).post('/wishlist').set('Authorization', tokenJWT).send({ product_id: 1 })
+//         expect(response.status).toBe(200);
+//     })
+// });
+// describe('DELETE /wishlist/:id', () => {
+//     test('delete wishlist', async () => {
+//         const response = await request(app).delete('/wishlist/1').set('Authorization', tokenJWT)
+//         expect(response.status).toBe(200);
+//     })
+// });
 
 //transaksi
 describe('GET /transaksi/buyer', () => {
@@ -173,16 +173,16 @@ describe('GET /transaksi/seller', () => {
         expect(response.status).toBe(200);
     })
 });
-describe('POST /transaksi', () => {
-    test('post transaksi', async () => {
-        const response = await request(app).post('/transaksi').set('Authorization', tokenJWT).send({ userId: 2, productId: 1, tawarId: 1, price: 20000, status: "pending" })
-        expect(response.status).toBe(200);
-    })
-});
-describe('PUT /transaksi/:id', () => {
-    test('put transaksi', async () => {
-        const response = await request(app).put('/transaksi/1').set('Authorization', tokenJWT).send({ transaksiId: 1, status: "rejected" })
-        expect(response.status).toBe(200);
-    })
-});
+// describe('POST /transaksi', () => {
+//     test('post transaksi', async () => {
+//         const response = await request(app).post('/transaksi').set('Authorization', tokenJWT).send({ userId: 2, productId: 1, tawarId: 1, price: 20000, status: "pending" })
+//         expect(response.status).toBe(200);
+//     })
+// });
+// describe('PUT /transaksi/:id', () => {
+//     test('put transaksi', async () => {
+//         const response = await request(app).put('/transaksi/1').set('Authorization', tokenJWT).send({ transaksiId: 1, status: "rejected" })
+//         expect(response.status).toBe(200);
+//     })
+// });
 
