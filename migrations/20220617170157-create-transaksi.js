@@ -33,8 +33,8 @@ module.exports = {
           model: 'tawars',
           key: 'id'
         },
-        onUpdate: "cascade",
-        onDelete: "cascade"
+        onUpdate: "set null",
+        onDelete: "set null"
       },
       price: {
         type: Sequelize.INTEGER
