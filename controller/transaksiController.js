@@ -11,7 +11,6 @@ module.exports = {
       }
     }).then(result => {
       if (result.length > 0) {
-        // console.log(data.tawarId);
         if (data.status == "rejected") {
           models.tawar.update(
             {
@@ -91,7 +90,6 @@ module.exports = {
               id: result.productId
             }
           })
-          // opsi bisa di update di tawar
           models.tawar.update({
             status: "accepted"
           }, {
@@ -99,16 +97,6 @@ module.exports = {
               id: result.tawarId
             }
           })
-          // models.tawar.update({
-          //   status: "rejected"
-          // }, {
-          //   where: {
-          //     id: {
-          //       [Op.not]: [result.tawarId]
-          //     },
-          //     productId: result.productId
-          //   }
-          // })
           models.tawar.destroy({
             where: {
               id: {
@@ -132,7 +120,6 @@ module.exports = {
               id: data.transaksiId
             }
           })
-          // opsialnya bisa di update di tawars
           models.tawar.update(
             {
               status: "rejected"
@@ -142,13 +129,6 @@ module.exports = {
                 id: req.params.id
               }
             })
-
-          // models.tawar.destroy({
-          //   where: {
-          //     id: req.params.id
-          //   }
-          // })
-
           res.status(200).json({
             message: "Transaksi rejected",
             success: true,
@@ -175,7 +155,9 @@ module.exports = {
     models.transaksi.findAll({
       where: {
         userId: req.user.id,
-        status: "accepted"
+        status: {
+          [Op.or]: ["accepted", "rejected"]
+        }
       },
       include: [{
         model: models.product,
