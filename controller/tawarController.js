@@ -52,9 +52,9 @@ module.exports = {
     },
     getTawar: (req, res) => {
         models.tawar.findAll({
-            where: {
-                userId: req.user.id
-            },
+            // where: {
+            //     userId: req.user.id
+            // },
             include: [
                 {
                     model: models.product,
